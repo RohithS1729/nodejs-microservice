@@ -1,8 +1,10 @@
 const BlogData=require("../modals/postData")
 const UserData=require('../modals/userData')
+const getAllPosts=require("../services/getPostsService")
 const getPosts=(req,res)=>{
 
-    
+
+
     let limitNumber=req.query.limit;
     let skipNumber=req.query.page*limitNumber;
     if(req.query.type==="profilePageSelected"){
@@ -32,12 +34,7 @@ const getPosts=(req,res)=>{
         })
         
     }else{
-        BlogData.find({}).sort({creation:-1}).skip(skipNumber).limit(limitNumber).exec((err,data)=>{
-            if(err) res.send(err)
-            else{
-                res.send(data)
-            }
-        })
+        getAllPosts(req,res)
 
     }
 

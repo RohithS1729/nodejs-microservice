@@ -1,5 +1,7 @@
 const BlogData=require("../modals/postData")
 const UserData=require('../modals/userData')
+
+const getPollsService=require("../services/getPollsService")
 const getPolls=(req,res)=>{
     let limitNumber=req.query.limit;
     let skipNumber=req.query.page*limitNumber;
@@ -30,12 +32,13 @@ const getPolls=(req,res)=>{
         })
         
     }else{
-        BlogData.find({}).sort({creation:-1}).skip(skipNumber).limit(limitNumber).exec((err,data)=>{
-            if(err) res.send(err)
-            else{
-                res.send(data)
-            }
-        })
+        getPollsService(req,res)
+        // BlogData.find({}).sort({creation:-1}).skip(skipNumber).limit(limitNumber).exec((err,data)=>{
+        //     if(err) res.send(err)
+        //     else{
+        //         res.send(data)
+        //     }
+        // })
 
     }
 

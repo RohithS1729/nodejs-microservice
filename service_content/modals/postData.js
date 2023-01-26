@@ -15,7 +15,7 @@ const postsData=new Schema({
     userId:String,
     groupId:String,
     selected:String,
-    counter:Object
+    options:Object
 })
 
 

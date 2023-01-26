@@ -11,7 +11,8 @@ cloudinary.config({
   });
 
 
-function posting(req,res){
+function postPollsService(req,res){
+    console.log(req.body)
     if(req.files){
         const file=req.files.media;
 
@@ -49,25 +50,25 @@ function posting(req,res){
     })
     }else{
         let date= new Date().toISOString()
-        let newBlog=new BlogData()
+        let newBlog=new BlogData(req.body)
         newBlog.creation=date
-        newBlog.type=req.query.type
+        // newBlog.type=req.query.type
 
-        if(req.query.groupId){
+        // if(req.query.groupId){
 
-                newBlog.userId=req.query.userId
-                newBlog.groupId=req.query.groupId
-                newBlog.groupType=req.query.groupType
-        }else {
-                newBlog.groupId=req.query.userId
+        //         newBlog.userId=req.query.userId
+        //         newBlog.groupId=req.query.groupId
+        //         newBlog.groupType=req.query.groupType
+        // }else {
+        //         newBlog.groupId=req.query.userId
                 
-            }
+        //     }
 
 
 
         // if(req.query.type==='post'){
-            newBlog.title=req.query.title
-
+        // newBlog.title=req.query.title
+        // newBlog.options=req.query.options
         // }
         // else{
         //     newBlog.title=req.body.title;
@@ -99,4 +100,8 @@ function posting(req,res){
     
 }
 
-module.exports=posting
+module.exports=postPollsService
+// module.exports=postPollsService=(req,res)=>{
+
+
+// }
