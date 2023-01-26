@@ -4,8 +4,14 @@ const Schema= mongoose.Schema
 
 const GroupData=new Schema({
     GroupName:String,
+    creation:String,
+    GroupPrivacy:String,
+    userId:String,
 
-    GroupPrivacy:String
+    // groupType:String,
+    
+    title:String,
+    imageUrl:String,
 })
 
 

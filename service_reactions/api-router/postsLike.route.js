@@ -7,10 +7,10 @@ const deleteLikeCount=require("../controllers/deleteLikesCount")
 
 
 
-route.get('/posts/likes',getLikesCount)
-route.post('/posts/likes',postLikeData);
-route.put('/posts/modify',modifyPutPosts)
-route.delete('/posts/likes',deleteLikeCount)
+route.get('/',getLikesCount)
+route.post('/',postLikeData);
+route.put('/modify',modifyPutPosts)
+route.delete('/',deleteLikeCount)
 
 
 

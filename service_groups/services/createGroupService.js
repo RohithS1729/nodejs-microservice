@@ -1,7 +1,10 @@
+
 const GroupData=require("../modals/groupData")
 
-const createGroupController=(req,res)=>{
-    // console.log(req.body)
+const createGroupService=(req,res)=>{
+
+
+
     GroupData.findOne({GroupName:req.body.GroupName}).exec((err,data)=>{
         if(err){
             res.send(err)
@@ -11,13 +14,13 @@ const createGroupController=(req,res)=>{
             })
         }else{
             const newUser= new GroupData(req.body);
-            // newUser.password=newUser.generateHash(req.body.password);
-
+    
             newUser.save((err,data)=>{
                 if(err) return res.send(err)
                 else return res.send(newUser)
             })
         }
     })
+
 }
-module.exports=createGroupController
+module.exports=createGroupService

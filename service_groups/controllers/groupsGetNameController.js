@@ -1,16 +1,7 @@
-const GroupData=require("../modals/groupData")
+const getGroupProfileService=require("../services/getGroupProfileService")
 
-const groupsGetNamesController=(req,res)=>{
-    
-        
-        GroupData.find({}).exec((err,data)=>{
-            if(err){
-                res.send(err)
-            }else{
-                
-                res.send(data)
-            }
-        })
+const groupsGetNamesController=(req,res)=>{     
+    getGroupProfileService(req,res)
     
 }
 module.exports=groupsGetNamesController

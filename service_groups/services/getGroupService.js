@@ -1,10 +1,10 @@
 const BlogData=require("../modals/postData")
 
+const getGroupService=(req,res)=>{
 
-const getPostsGroupsController=(req,res)=>{
-    
-        
-    BlogData.find({groupId:req.query.groupId}).exec((err,data)=>{
+
+
+    BlogData.find({groupId:req.query.id}).exec((err,data)=>{
         if(err){
             res.send(err)
         }else{
@@ -14,4 +14,4 @@ const getPostsGroupsController=(req,res)=>{
     })
 
 }
-module.exports=getPostsGroupsController
+module.exports=getGroupService

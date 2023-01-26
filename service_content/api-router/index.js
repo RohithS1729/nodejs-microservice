@@ -1,12 +1,13 @@
 const router=require("express").Router()
-const homeOrLogin=require('./homeOrLogin.route')
-const profile=require('./profile.route')
-const signUp=require('./signUp.route')
-const groups=require('./gropus.route')
-
+const postsRoute=require("./posts.route")
+const pollsRoute=require("./polls.route")
 // router.use('/groups',groups)
 // router.use('/profile',profile)
 // router.use('/signUp',signUp)
-router.use('/',homeOrLogin)
+// router.use('/',homeOrLogin)
+
+
+router.use('/posts',postsRoute)
+router.use('/polls',pollsRoute)
 
 module.exports=router

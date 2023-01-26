@@ -1,7 +1,10 @@
 const router=require("express").Router()
-const groups=require('./gropus.route')
+const publicRoute=require("./public.route")
+const privateRoute=require("./private.route")
 
-router.use('/',groups)
+
+router.use("/Public",publicRoute)
+router.use("/Private",privateRoute)
 
 
 module.exports=router

@@ -6,9 +6,9 @@ const postModifyVote=require('../controllers/postModifyVote')
 
 
 
-route.post('/polls/vote',postVote)
-route.post('/polls/vote/modify',postModifyVote)
-route.get('/polls/vote',getVote)
+route.post('/',postVote)
+route.post('/modify',postModifyVote)
+route.get('/',getVote)
 
 
 
