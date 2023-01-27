@@ -16,7 +16,7 @@ app.use(fileUpload({
 const bodyParser=require("body-parser")
 app.use(bodyParser.json())
 //local modules
-// const router=require('./api-router/index')
+const router=require('./api-router/index')
 
 //dbms
 const connectionString='mongodb+srv://firstCluster:firstCluster@cluster0.xa1yhbm.mongodb.net/SocialMedia?retryWrites=true&w=majority'
