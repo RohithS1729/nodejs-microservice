@@ -5,7 +5,7 @@ const OptionsData=new Schema({
     // Content (  id, creation,modified, title, type, body, imageUrls, videoUrl, userId,groupId )
     creation:String,
     voterId:String,
-    pollId:String,
+    postId:String,
     option:String
 
 })
