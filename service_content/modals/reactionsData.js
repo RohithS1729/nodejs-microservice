@@ -3,15 +3,15 @@ const Schema= mongoose.Schema
 
 const reactionData=new Schema({
     creation:String,
-    modified:String,
+    // modified:String,
     title:String,
     type:String,
     likedBy:String,
     postId:String,
-    // groupId:String,
     comment:String,
-    counter:Number,
-    selectionOption:String
+    groupId:String,
+    // counter:Number,
+    // selectionOption:String
 })
 
 

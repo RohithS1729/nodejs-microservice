@@ -10,7 +10,7 @@ const GroupData=new Schema({
 
     // groupType:String,
     
-    title:String,
+    // title:String,
     imageUrl:String,
 })
 
