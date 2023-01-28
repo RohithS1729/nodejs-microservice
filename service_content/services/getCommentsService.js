@@ -1,10 +1,15 @@
 const ReactionData=require('../modals/reactionsData')
 
 const getCommentsService=(req,res)=>{
-    console.log('herre')
-    ReactionData.find({
-       
-        postId:req.query.postId
+    ReactionData.find({$and:[
+        {
+            comment:{$exists:true}
+
+        },{
+
+            postId:req.query.postId
+        }
+    ]
     }).exec((err,data)=>{
         if(err){
             res.send({err})

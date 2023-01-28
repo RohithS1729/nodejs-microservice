@@ -13,6 +13,7 @@ cloudinary.config({
 
 function posting(req,res){
     if(req.files){
+        console.log(req)
         const file=req.files.media;
 
     cloudinary.uploader.upload(file.tempFilePath,(err,data)=>{
@@ -48,6 +49,7 @@ function posting(req,res){
 
     })
     }else{
+        console.log(req)
         let date= new Date().toISOString()
         let newBlog=new BlogData()
         newBlog.creation=date
