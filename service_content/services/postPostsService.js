@@ -2,6 +2,7 @@ const cloudinary = require('cloudinary').v2
 const BlogData=require('../modals/postData')
 // const mutler=require('../lib/mutler')
 
+console.log(1)
 
 cloudinary.config({ 
     cloud_name: 'dnxmtemvf', 
@@ -12,44 +13,51 @@ cloudinary.config({
 
 
 function posting(req,res){
+    console.log(req.files)
     if(req.files){
-        console.log(req)
         const file=req.files.media;
 
-    cloudinary.uploader.upload(file.tempFilePath,(err,data)=>{
+        cloudinary.uploader.upload(file.tempFilePath,{resource_type:"auto"},(err,data)=>{
 
         if(err){
             console.log(err)
         }else{
-            let date=new Date().toISOString()
+            let date= new Date().toISOString()
             let newBlog=new BlogData()
-            newBlog.title=req.query.title
-            newBlog.imageUrl=data.url
             newBlog.creation=date
             newBlog.type=req.query.type
+    
             if(req.query.groupId){
-
-                newBlog.userId=req.query.userId
-                newBlog.groupId=req.query.groupId
-                newBlog.groupType=req.query.groupType
+    
+                    newBlog.userId=req.query.userId
+                    newBlog.groupId=req.query.groupId
+                    newBlog.groupType=req.query.groupType
             }else {
-                newBlog.groupId=req.query.userId
-                
+                    newBlog.userId=req.query.userId
+                    
             }
-            
-            
+    
+            newBlog.title=req.query.title
+            newBlog.imageUrl=data.url
+    
+    
+    
+    
+    
             newBlog.save((err,data)=>{
                 if(err){
                     res.send(err)
                 }else{
-                    res.send('posted')
+                    res.send({
+                        msg:'posted',
+                        id:data._id
+                    })
                 }
             })
         }
 
     })
     }else{
-        console.log(req)
         let date= new Date().toISOString()
         let newBlog=new BlogData()
         newBlog.creation=date
@@ -61,25 +69,13 @@ function posting(req,res){
                 newBlog.groupId=req.query.groupId
                 newBlog.groupType=req.query.groupType
         }else {
-                newBlog.groupId=req.query.userId
+                newBlog.userId=req.query.userId
                 
-            }
+        }
+
+        newBlog.title=req.query.title
 
 
-
-        // if(req.query.type==='post'){
-            newBlog.title=req.query.title
-
-        // }
-        // else{
-        //     newBlog.title=req.body.title;
-        //     newBlog.selected=''
-        //     newBlog.counter={
-        //         yes:0,
-        //         no:0
-        //     }
-
-        // }
 
 
 

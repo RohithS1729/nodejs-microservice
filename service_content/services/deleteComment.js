@@ -6,7 +6,16 @@ const deleteComment=(req,res)=>{
             res.send({err})
         }
         else{
-            res.send({msg:"deleted",datas:data})
+            if(!data){
+                res.send({
+                    msg:'already deleted or no such comment exist'
+                })
+            }else{
+                res.send({
+                    msg:"deleted",
+                    deletedComment:data
+                })
+            }
         }
         
     })

@@ -9,7 +9,7 @@ module.exports= getPollsService=(req,res)=>{
             }
         })
     }else{
-        BlogData.find({"type":"poll"}).sort({creation:-1}).exec((err,data)=>{
+        BlogData.find({"type":"poll"},{title:1,userId:1,groupId:1,options:1}).sort({creation:-1}).exec((err,data)=>{
 
             if(err) res.send(err)
             else{

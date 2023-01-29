@@ -5,11 +5,21 @@ const deleteVoteService=(req,res)=>{
         {voterId:req.query.voterId},
         {postId:req.query.postId}
     ]}).exec((err,data)=>{
+        console.log(data)
         if(err){
             res.send({err})
         }
         else{
-            res.send({msg:"deleted",datas:data})
+            if(!data){
+                res.send({
+                    msg:'no reaction from that user found'
+                })
+            }else{
+                res.send({
+                    msg:"deleted",
+                    unliked:data
+                })
+            }
         }
         
     })
