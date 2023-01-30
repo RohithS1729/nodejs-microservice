@@ -16,8 +16,8 @@ const createGroupService=(req,res)=>{
             const newUser= new GroupData(req.body);
             let date=new Date().toISOString()
             newUser.creation=date
-            newUser.save((err,data1)=>{
-                if(err) return res.send(err)
+            newUser.save((err1,data1)=>{
+                if(err1) return res.send(err1)
                 else return res.send(data1)
             })
         }

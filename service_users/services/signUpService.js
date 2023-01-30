@@ -13,8 +13,8 @@ const signUpService=(req,res)=>{
             const newUser= new UserData(req.body);
             newUser.password=newUser.generateHash(req.body.password);
 
-            newUser.save((err,data1)=>{
-                if(err) return res.send(err)
+            newUser.save((err1,data1)=>{
+                if(err1) return res.send(err1)
                 else return res.send(data1)
             })
         }

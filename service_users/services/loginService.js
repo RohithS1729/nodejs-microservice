@@ -8,8 +8,8 @@ const loginService=(req,res)=>{
             res.send({
                 msg:'No such user found, please sign up!!'
             })
-        }else{
-            if(data.comparePassword(req.body.password)){
+        }else if(data.comparePassword(req.body.password)){
+            
                 res.send({
                     msg:'logged in',
                     userId:data._id
@@ -21,7 +21,7 @@ const loginService=(req,res)=>{
                     
                 })
             }
-        }
+        
     })
 }
 module.exports=loginService
