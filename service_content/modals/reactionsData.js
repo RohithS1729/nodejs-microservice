@@ -10,8 +10,7 @@ const reactionData=new Schema({
     postId:String,
     comment:String,
     groupId:String,
-    // counter:Number,
-    // selectionOption:String
+
 })
 
 

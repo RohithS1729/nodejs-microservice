@@ -13,7 +13,6 @@ const getOptionVoteService=(req,res,selectedVote)=>{
             res.send(data)
         }
         else{
-            console.log(data)
             res.send('0')
         }       
     })

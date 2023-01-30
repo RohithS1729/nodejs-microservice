@@ -1,8 +1,6 @@
 const cloudinary = require('cloudinary').v2
 const BlogData=require('../modals/postData')
-// const mutler=require('../lib/mutler')
 
-console.log(1)
 
 cloudinary.config({ 
     cloud_name: 'dnxmtemvf', 
@@ -13,14 +11,13 @@ cloudinary.config({
 
 
 function posting(req,res){
-    console.log(req.files)
     if(req.files){
         const file=req.files.media;
 
         cloudinary.uploader.upload(file.tempFilePath,{resource_type:"auto"},(err,data)=>{
 
         if(err){
-            console.log(err)
+            res.send(err)
         }else{
             let date= new Date().toISOString()
             let newBlog=new BlogData()

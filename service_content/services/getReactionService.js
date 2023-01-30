@@ -20,7 +20,6 @@ const getReactionService=(req,res)=>{
             res.send(data)
         }
         else{
-            console.log(data)
             res.send('0')
         }
         

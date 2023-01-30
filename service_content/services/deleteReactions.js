@@ -5,7 +5,6 @@ const deleteReactions=(req,res)=>{
         {likedBy:req.query.likedBy},
         {postId:req.query.postId}
     ]}).exec((err,data)=>{
-        console.log(data)
         if(err){
             res.send({err})
         }

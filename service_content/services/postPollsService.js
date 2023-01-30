@@ -1,6 +1,5 @@
 const cloudinary = require('cloudinary').v2
 const BlogData=require('../modals/postData')
-// const mutler=require('../lib/mutler')
 
 
 cloudinary.config({ 
@@ -63,7 +62,3 @@ function postPollsService(req,res){
 }
 
 module.exports=postPollsService
-// module.exports=postPollsService=(req,res)=>{
-
-
-// }

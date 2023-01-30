@@ -1,5 +1,4 @@
 const route=require('express').Router()
-console.log(1)
 
 const getPosts=require("../controllers/getPosts")
 const postPosts=require("../controllers/postPosts")

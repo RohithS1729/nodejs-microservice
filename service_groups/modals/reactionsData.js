@@ -8,7 +8,6 @@ const reactionData=new Schema({
     type:String,
     likedBy:String,
     postId:String,
-    // groupId:String,
     counter:Number,
     selectionOption:String
 })

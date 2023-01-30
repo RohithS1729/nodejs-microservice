@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const Schema= mongoose.Schema
 
 const postsData=new Schema({
-    // Content (  id, creation,modified, title, type, body, imageUrls, videoUrl, userId,groupId )
     creation:String,
     modified:String,
     title:String,

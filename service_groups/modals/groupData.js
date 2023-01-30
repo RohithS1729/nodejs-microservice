@@ -8,9 +8,6 @@ const GroupData=new Schema({
     GroupPrivacy:String,
     userId:String,
 
-    // groupType:String,
-    
-    // title:String,
     imageUrl:String,
 })
 

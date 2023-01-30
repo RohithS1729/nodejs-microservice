@@ -15,11 +15,9 @@ const getCommentsService=(req,res)=>{
             res.send({err})
         }
         else if(data.length>0){
-            // let count=data.length
             res.send(data)
         }
         else{
-            console.log(data)
             res.send('0')
         }
         

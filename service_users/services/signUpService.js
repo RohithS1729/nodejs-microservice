@@ -3,7 +3,6 @@ const UserData = require("../modals/userData")
 
 const signUpService=(req,res)=>{
     UserData.findOne({username:req.body.username}).exec((err,data)=>{
-        console.log("signUpController")
         if(err){
             res.send(err)
         }else if(data){
@@ -16,7 +15,7 @@ const signUpService=(req,res)=>{
 
             newUser.save((err,data)=>{
                 if(err) return res.send(err)
-                else return res.send(newUser)
+                else return res.send(data)
             })
         }
     })

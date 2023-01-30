@@ -11,7 +11,6 @@ const getPostsService=(req,res)=>{
             }
         })
     }else{
-        console.log('here')
         BlogData.find({"type":"post"},{title:1,userId:1,groupId:1,imageUrl:1}).sort({creation:-1}).exec((err,data)=>{
             if(err) res.send(err)
             else{

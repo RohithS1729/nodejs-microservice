@@ -5,7 +5,6 @@ const deleteVoteService=(req,res)=>{
         {voterId:req.query.voterId},
         {postId:req.query.postId}
     ]}).exec((err,data)=>{
-        console.log(data)
         if(err){
             res.send({err})
         }
