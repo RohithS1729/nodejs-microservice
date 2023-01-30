@@ -41,13 +41,13 @@ function posting(req,res){
     
     
     
-            newBlog.save((err,data)=>{
+            newBlog.save((err,data1)=>{
                 if(err){
                     res.send(err)
                 }else{
                     res.send({
                         msg:'posted',
-                        id:data._id
+                        id:data1._id
                     })
                 }
             })
@@ -76,13 +76,13 @@ function posting(req,res){
 
 
 
-        newBlog.save((err,data)=>{
+        newBlog.save((err,data2)=>{
             if(err){
                 res.send(err)
             }else{
                 res.send({
                     msg:'posted',
-                    id:data._id
+                    id:data2._id
                 })
             }
         })

@@ -13,9 +13,9 @@ const postVotesService=(req,res)=>{
                 let newUser=new OptionData(req.body);
                 let date=new Date().toISOString()
                 newUser.creation=date
-                newUser.save((err,data)=>{
+                newUser.save((err,data1)=>{
                     if(err) res.send(err)
-                    else res.send({msg:'voted',datas:data})
+                    else res.send({msg:'voted',datas:data1})
                 })
             }
         }
