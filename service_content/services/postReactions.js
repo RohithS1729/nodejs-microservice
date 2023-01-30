@@ -19,8 +19,8 @@ const postReactions=(req,res)=>{
             let date= new Date().toISOString()
             newUser.creation=date
             
-            newUser.save((err,data1)=>{
-                if(err) res.send(err)
+            newUser.save((err1,data1)=>{
+                if(err1) res.send(err1)
                 else res.send({msg:'posted',datas:data1})
             })
         }

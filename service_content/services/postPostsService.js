@@ -41,9 +41,9 @@ function posting(req,res){
     
     
     
-            newBlog.save((err,data1)=>{
-                if(err){
-                    res.send(err)
+            newBlog.save((err1,data1)=>{
+                if(err1){
+                    res.send(err1)
                 }else{
                     res.send({
                         msg:'posted',
@@ -76,9 +76,9 @@ function posting(req,res){
 
 
 
-        newBlog.save((err,data2)=>{
-            if(err){
-                res.send(err)
+        newBlog.save((err2,data2)=>{
+            if(err2){
+                res.send(err2)
             }else{
                 res.send({
                     msg:'posted',

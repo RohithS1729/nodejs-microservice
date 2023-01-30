@@ -7,20 +7,17 @@ const deleteVoteService=(req,res)=>{
     ]}).exec((err,data)=>{
         if(err){
             res.send({err})
+        }else if(!data){
+            res.send({
+                msg:'no reaction from that user found'
+            })
+        }else{
+            res.send({
+                msg:"deleted",
+                unliked:data
+            })
         }
-        else{
-            if(!data){
-                res.send({
-                    msg:'no reaction from that user found'
-                })
-            }else{
-                res.send({
-                    msg:"deleted",
-                    unliked:data
-                })
-            }
-        }
-        
+  
     })
 }
 module.exports=deleteVoteService

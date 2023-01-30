@@ -1,6 +1,6 @@
 const BlogData=require("../modals/postData")
 
-module.exports= getPollsService=(req,res)=>{
+const getPollsService=(req,res)=>{
     if(req.query.getId){
         BlogData.find({_id:req.query.getId}).sort({creation:-1}).exec((err,data)=>{
             if(err) res.send(err)
@@ -18,3 +18,5 @@ module.exports= getPollsService=(req,res)=>{
         })
     }
 }
+
+module.exports= getPollsService
