@@ -1,8 +1,6 @@
 const GroupData=require("../modals/groupData")
 
-
-
-const getGroupService=(req,res)=>{
+const privateGetGroupService=(req,res)=>{
 
     GroupData.find({GroupPrivacy:"Private"}).exec((err,data)=>{
         if(err){
@@ -12,5 +10,6 @@ const getGroupService=(req,res)=>{
         }
     })
 
+    
 }
-module.exports=getGroupService
+module.exports=privateGetGroupService
