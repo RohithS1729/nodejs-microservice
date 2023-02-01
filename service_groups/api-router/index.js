@@ -1,12 +1,13 @@
 const router=require("express").Router()
 const publicRoute=require("./public.route")
 const privateRoute=require("./private.route")
-const createGroupRoute=require("./createGroup.route")
+const defaultRoute=require("./default.route")
 
 
 router.use("/Public",publicRoute)
 router.use("/Private",privateRoute)
-router.use("/create",createGroupRoute)
+router.use("/",defaultRoute)
+
 
 
 module.exports=router

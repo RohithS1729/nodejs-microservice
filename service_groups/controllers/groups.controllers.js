@@ -3,6 +3,7 @@ const getGroupProfileService=require("../services/getGroupProfileService")
 const privateGetGroupService=require("../services/privateGetGroupService")
 const privateGetGroupProfileService=require("../services/privateGetGroupProfileService")
 const createGroupService=require("../services/createGroupService")
+const addfollowerService=require("../services/addfollowerService.js")
 
 const getPublicController=(req,res)=>{
     getAllPublicGroups(req,res)
@@ -27,12 +28,15 @@ const createGroupController=(req,res)=>{
     createGroupService(req,res)
     
 }
-
+const addfollowerController=(req,res)=>{
+    addfollowerService(req,res)
+}
 
 module.exports={
     privateGroupsGetNamesController,
     privateGetPostsGroupsController,
     groupsGetNamesController,
     getPublicController,
-    createGroupController
+    createGroupController,
+    addfollowerController
 }
