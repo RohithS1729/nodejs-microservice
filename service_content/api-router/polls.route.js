@@ -1,12 +1,12 @@
 const route=require('express').Router()
 
-const getPolls=require("../controllers/getPolls")
-const postPolls=require("../controllers/postPolls")
-const deletePoll=require("../controllers/deletePoll")
+const {getPolls}=require("../controllers/content.controller")
+const {postPolls}=require("../controllers/content.controller")
+const {deletePoll}=require("../controllers/content.controller")
 
-const getPollVotes=require("../controllers/getPollVotes")
-const postPollVotes=require("../controllers/postPollVotes")
-const deletePollVote=require("../controllers/deletePollVote")
+const {getPollVotes}=require("../controllers/content.controller")
+const {postPollVotes}=require("../controllers/content.controller")
+const {deletePollVote}=require("../controllers/content.controller")
 
 
 

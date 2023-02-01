@@ -33,10 +33,7 @@ db.on('error',()=>{console.log('did not connect to db')});
 db.on('open',()=>{console.log('started listening to db')});
 
 
-// app.post("/posts",(req,res)=>{
-//     console.log(req.files)
-// res.send('here')
-// })
+
 app.use(router)
 
 
