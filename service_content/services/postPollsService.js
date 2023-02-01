@@ -1,5 +1,6 @@
 // const cloudinary = require('cloudinary').v2
 const BlogData=require('../modals/postData')
+const savingData=require('../repository/savingData')
 
 
 // cloudinary.config({ 
@@ -16,19 +17,20 @@ function postPollsService(req,res){
         let newBlog=new BlogData(req.body)
         newBlog.creation=date
 
+        
 
 
-
-        newBlog.save((err1,data1)=>{
-            if(err1){
-                res.send(err1)
-            }else{
-                res.send({
-                    msg:'posted',
-                    id:data1._id
-                })
-            }
-        })
+        savingData(newBlog,res)
+        // newBlog.save((err1,data1)=>{
+        //     if(err1){
+        //         res.send(err1)
+        //     }else{
+        //         res.send({
+        //             msg:'posted',
+        //             id:data1._id
+        //         })
+        //     }
+        // })
     
     
     

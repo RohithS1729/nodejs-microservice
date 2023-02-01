@@ -1,4 +1,7 @@
 const express=require("express")
+const dotenv=require("dotenv")
+dotenv.config()
+
 const cors=require("cors")
 const proxy=require("express-http-proxy")
 
@@ -12,6 +15,6 @@ app.use("/reactions",proxy("http://localhost:8004"))
 
 
 
-app.listen(8000,()=>{
+app.listen(process.env.PORT,()=>{
     console.log("gateway is listening to post 8000")
 })

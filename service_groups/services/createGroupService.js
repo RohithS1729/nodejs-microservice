@@ -1,5 +1,6 @@
 
 const GroupData=require("../modals/groupData")
+const savingData=require('../repository/savingData')
 
 const createGroupService=(req,res)=>{
 
@@ -16,10 +17,12 @@ const createGroupService=(req,res)=>{
             const newUser= new GroupData(req.body);
             let date=new Date().toISOString()
             newUser.creation=date
-            newUser.save((err1,data1)=>{
-                if(err1) return res.send(err1)
-                else return res.send(data1)
-            })
+
+            savingData(newUser,res)
+            // newUser.save((err1,data1)=>{
+            //     if(err1) return res.send(err1)
+            //     else return res.send(data1)
+            // })
         }
     })
 

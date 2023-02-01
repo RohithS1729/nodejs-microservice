@@ -1,4 +1,6 @@
 const express=require("express")
+const dotenv=require("dotenv")
+dotenv.config()
 const mongoose=require("mongoose")
 
 const cors=require("cors")
@@ -30,6 +32,6 @@ db.on('open',()=>{console.log('started listening to db')});
 app.use(router)
 
 
-app.listen(8001,()=>{
+app.listen(process.env.PORT,()=>{
     console.log("gateway is listening to post 8001")
 })

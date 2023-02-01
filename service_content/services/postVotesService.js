@@ -1,4 +1,6 @@
 const OptionData=require("../modals/optionsData")
+const savingData=require('../repository/savingData')
+
 const postVotesService=(req,res)=>{
     OptionData.find({$and:[
         {voterId:req.body.voterId},
@@ -13,10 +15,7 @@ const postVotesService=(req,res)=>{
             let newUser=new OptionData(req.body);
             let date=new Date().toISOString()
             newUser.creation=date
-            newUser.save((err1,data1)=>{
-                if(err1) res.send(err1)
-                else res.send({msg:'voted',datas:data1})
-            })
+            savingData(newUser,res)
         }
         
         // else{

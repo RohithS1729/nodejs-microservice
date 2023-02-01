@@ -1,5 +1,6 @@
 const cloudinary = require('cloudinary').v2
 const BlogData=require('../modals/postData')
+const savingData=require('../repository/savingData')
 
 
 cloudinary.config({ 
@@ -41,16 +42,7 @@ function posting(req,res){
     
     
     
-            newBlog.save((err1,data1)=>{
-                if(err1){
-                    res.send(err1)
-                }else{
-                    res.send({
-                        msg:'posted',
-                        id:data1._id
-                    })
-                }
-            })
+            savingData(newBlog,res)
         }
 
     })
@@ -76,16 +68,7 @@ function posting(req,res){
 
 
 
-        newBlog.save((err2,data2)=>{
-            if(err2){
-                res.send(err2)
-            }else{
-                res.send({
-                    msg:'posted',
-                    id:data2._id
-                })
-            }
-        })
+        savingData(newBlog,res)
     }
     
     

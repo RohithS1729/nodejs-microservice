@@ -1,4 +1,5 @@
 const ReactionData=require("../modals/reactionsData")
+const savingData=require('../repository/savingData')
 
 const postReactions=(req,res)=>{
 
@@ -19,10 +20,7 @@ const postReactions=(req,res)=>{
             let date= new Date().toISOString()
             newUser.creation=date
             
-            newUser.save((err1,data1)=>{
-                if(err1) res.send(err1)
-                else res.send({msg:'posted',datas:data1})
-            })
+            savingData(newUser,res)
         }
         
     })
