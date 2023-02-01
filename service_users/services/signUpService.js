@@ -1,6 +1,8 @@
 const UserData = require("../modals/userData")
 
 
+const savingData=require('../repository/savingData')
+
 const signUpService=(req,res)=>{
     UserData.findOne({username:req.body.username}).exec((err,data)=>{
         if(err){
@@ -13,10 +15,12 @@ const signUpService=(req,res)=>{
             const newUser= new UserData(req.body);
             newUser.password=newUser.generateHash(req.body.password);
 
-            newUser.save((err1,data1)=>{
-                if(err1) return res.send(err1)
-                else return res.send(data1)
-            })
+            savingData(newUser,res)
+            // newUser.save((err1,data1)=>{
+            //     if(err1) return res.send(err1)
+            //     else return res.send(data1)
+            // })
+            
         }
     })
 }

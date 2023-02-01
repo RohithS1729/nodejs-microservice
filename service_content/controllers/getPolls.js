@@ -16,4 +16,13 @@ const getPolls=(req,res)=>{
 
 
 }
+const getPollVotes=(req,res)=>{
+    if(req.query.option){
+        getOptionVoteService(req,res,req.query.option)
+    }else{
+
+        getVotesService(req,res)
+    }
+}
+module.exports=getPollVotes
 module.exports=getPolls
