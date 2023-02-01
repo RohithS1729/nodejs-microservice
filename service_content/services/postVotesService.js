@@ -18,12 +18,7 @@ const postVotesService=(req,res)=>{
             savingData(newUser,res)
         }
         
-        // else{
-        //     if(data.length>0){
-        //     }else{
-                
-        //     }
-        // }
+
     })
 }
 module.exports=postVotesService

@@ -21,8 +21,7 @@ app.use(bodyParser.json())
 const router=require('./api-router/index')
 
 //dbms
-const connectionString='mongodb+srv://firstCluster:firstCluster@cluster0.xa1yhbm.mongodb.net/SocialMedia?retryWrites=true&w=majority'
-mongoose.connect(connectionString);
+mongoose.connect(process.env.CONNECTION_STRING);
 const db= mongoose.connection;
 db.on('error',()=>{console.log('did not connect to db')});
 db.on('open',()=>{console.log('started listening to db')});

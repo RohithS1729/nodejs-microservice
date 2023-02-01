@@ -4,10 +4,10 @@ const savingData=require('../repository/savingData')
 
 
 cloudinary.config({ 
-    cloud_name: 'dnxmtemvf', 
-    api_key: '491466975142258', 
-    api_secret: 'rRbDPkO5-1JuWEgiRW-1y4rZRUU',
-    secure: true
+    cloud_name: process.env.cloud_name, 
+    api_key: process.env.api_key, 
+    api_secret: process.env.api_secret,
+    secure: process.env.SECURE
   });
 
 

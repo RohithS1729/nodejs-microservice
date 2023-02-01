@@ -1,4 +1,6 @@
 const express=require("express")
+const dotenv=require("dotenv")
+dotenv.config()
 const mongoose=require("mongoose")
 
 const cors=require("cors")
@@ -25,8 +27,7 @@ const router=require('./api-router/index')
 
 //dbms
 
-const connectionString='mongodb+srv://firstCluster:firstCluster@cluster0.xa1yhbm.mongodb.net/SocialMedia?retryWrites=true&w=majority'
-mongoose.connect(connectionString);
+mongoose.connect(process.env.CONNECTION_STRING);
 const db= mongoose.connection;
 db.on('error',()=>{console.log('did not connect to db')});
 db.on('open',()=>{console.log('started listening to db')});
@@ -39,6 +40,6 @@ db.on('open',()=>{console.log('started listening to db')});
 app.use(router)
 
 
-app.listen(8002,()=>{
+app.listen(process.env.PORT,()=>{
     console.log("gateway is listening to post 8002")
 })
