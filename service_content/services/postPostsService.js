@@ -12,13 +12,41 @@ cloudinary.config({
 
 
 function posting(req,res){
-    if(req.files){
-        const file=req.files.media;
-
-        cloudinary.uploader.upload(file.tempFilePath,{resource_type:"auto"},(err,data)=>{
-
-        if(err){
-            res.send(err)
+    try{
+        if(req.files){
+            const file=req.files.media;
+    
+            cloudinary.uploader.upload(file.tempFilePath,{resource_type:"auto"},(err,data)=>{
+    
+            if(err){
+                res.send(err)
+            }else{
+                let date= new Date().toISOString()
+                let newBlog=new BlogData()
+                newBlog.creation=date
+                newBlog.type=req.query.type
+        
+                if(req.query.groupId){
+        
+                        newBlog.userId=req.query.userId
+                        newBlog.groupId=req.query.groupId
+                        newBlog.groupType=req.query.groupType
+                }else {
+                        newBlog.userId=req.query.userId
+                        
+                }
+        
+                newBlog.title=req.query.title
+                newBlog.imageUrl=data.url
+        
+        
+        
+        
+        
+                savingData(newBlog,res)
+            }
+    
+        })
         }else{
             let date= new Date().toISOString()
             let newBlog=new BlogData()
@@ -36,7 +64,6 @@ function posting(req,res){
             }
     
             newBlog.title=req.query.title
-            newBlog.imageUrl=data.url
     
     
     
@@ -44,34 +71,12 @@ function posting(req,res){
     
             savingData(newBlog,res)
         }
-
-    })
-    }else{
-        let date= new Date().toISOString()
-        let newBlog=new BlogData()
-        newBlog.creation=date
-        newBlog.type=req.query.type
-
-        if(req.query.groupId){
-
-                newBlog.userId=req.query.userId
-                newBlog.groupId=req.query.groupId
-                newBlog.groupType=req.query.groupType
-        }else {
-                newBlog.userId=req.query.userId
-                
-        }
-
-        newBlog.title=req.query.title
-
-
-
-
-
-        savingData(newBlog,res)
+        
     }
     
-    
+    catch(err){
+        res.send('error ================= in postPostsService file',err)
+    }
 
 
     

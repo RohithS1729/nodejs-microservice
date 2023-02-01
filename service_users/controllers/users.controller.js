@@ -1,6 +1,6 @@
 const loginService=require("../services/loginService")
 const signUpService=require("../services/signUpService")
-
+const getUserProfile=require("../services/getUserProfile")
 
 const signUpController=(req,res)=>{
 
@@ -13,15 +13,16 @@ const loginController=(req,res)=>{
     loginService(req,res)
 
 }
-// module.exports=signUpController
+const userProfile=(req,res)=>{
+    getUserProfile(req,res)
 
+}
 
-// module.exports=loginController
 
 
 
 
 
 module.exports= {
-    signUpController,loginController
+    signUpController,loginController,userProfile
 }

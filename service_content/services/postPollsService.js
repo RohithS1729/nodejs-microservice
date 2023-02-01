@@ -13,24 +13,19 @@ const savingData=require('../repository/savingData')
 
 function postPollsService(req,res){
     
-        let date= new Date().toISOString()
-        let newBlog=new BlogData(req.body)
-        newBlog.creation=date
-
+        try{
+                let date= new Date().toISOString()
+                let newBlog=new BlogData(req.body)
+                newBlog.creation=date
         
-
-
-        savingData(newBlog,res)
-        // newBlog.save((err1,data1)=>{
-        //     if(err1){
-        //         res.send(err1)
-        //     }else{
-        //         res.send({
-        //             msg:'posted',
-        //             id:data1._id
-        //         })
-        //     }
-        // })
+                
+        
+        
+                savingData(newBlog,res)
+        }
+        catch(err){
+                res.send('error ================= in postPollsService file',err)
+        }
     
     
     

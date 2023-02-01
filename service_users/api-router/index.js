@@ -2,11 +2,11 @@ const router=require("express").Router()
 
 const login=require('./login.route')
 const signUp=require('./signUp.route')
-const getUserProfile=require("../services/getUserProfile")
+const {userProfile}=require("../controllers/users.controller")
 
 
 router.use('/signUp',signUp)
 router.use('/login',login)
-router.use('/profile',getUserProfile)
+router.use('/profile',userProfile)
 
 module.exports=router
