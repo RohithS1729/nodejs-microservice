@@ -3,7 +3,6 @@ const savingData=require('../repository/savingData')
 
 const addfollowerService=(req,res)=>{
     try{ 
-        console.log(req.body)
 
         Members.find({$and:[{userId:req.body.userId},{groupId:req.body.groupId}]}).exec((err,data)=>{
             if(err){
@@ -13,7 +12,6 @@ const addfollowerService=(req,res)=>{
                     msg:'already followed'
                 })
             }else{
-                console.log(data)
                 const newUser= new Members(req.body);
                 let date=new Date().toISOString()
                 newUser.creation=date

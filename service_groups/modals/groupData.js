@@ -6,9 +6,12 @@ const GroupData=new Schema({
     GroupName:String,
     creation:String,
     GroupPrivacy:String,
-    userId:String,
+    // userId:String,
 
     imageUrl:String,
+    userId: {
+        type: mongoose.Schema.Types.ObjectId, 
+      }
 })
 
 
