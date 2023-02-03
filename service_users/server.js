@@ -34,3 +34,4 @@ app.use(router)
 app.listen(process.env.PORT,()=>{
     console.log("gateway is listening to post 8001")
 })
+
