@@ -5,8 +5,10 @@ const {loginService,signUpService,getUserProfile}=require("../services/users.ser
 const signUpController=(req,res)=>{
     signUpService(req,res)
 }
-const loginController=(req,res)=>{
-    loginService(req,res)
+const loginController=async (req,res)=>{
+    let result = await loginService(req,res)
+    res.send(result)
+
 
 }
 const userProfile=(req,res)=>{

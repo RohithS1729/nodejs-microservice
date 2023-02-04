@@ -1,18 +1,19 @@
 const {signUpRepo,loginRepo,getUsersRepo,getUserProfileRepo}=require("../repository/users.repository")
 
 
-const signUpService=(req,res)=>{
+const signUpService=async(req,res)=>{
     try{
-        signUpRepo(req,res)
+        let result=await signUpRepo(req,res)
+        console.log(result)
     }
     catch(err){
         res.send('error ================= in signUpService==============',err)
     }
 }
-const loginService=(req,res)=>{
+const loginService=async (req,res)=>{
     try{
-        loginRepo(req,res)
-       
+        let result =await loginRepo(req,res)
+        return result       
     }
     catch(err){
         res.send('error ================= in loginService',err)
