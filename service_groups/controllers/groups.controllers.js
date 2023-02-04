@@ -1,9 +1,16 @@
-const getAllPublicGroups=require("../services/getAllPublicGroups")
-const getGroupProfileService=require("../services/getGroupProfileService")
-const privateGetGroupService=require("../services/privateGetGroupService")
-const privateGetGroupProfileService=require("../services/privateGetGroupProfileService")
-const createGroupService=require("../services/createGroupService")
-const addfollowerService=require("../services/addfollowerService.js")
+const {
+    getAllPublicGroups,
+    getGroupProfileService,
+    privateGetGroupService,
+    privateGetGroupProfileService,
+    createGroupService,
+    addfollowerService
+    }=require("../services/groups.services")
+// const {}=require("../services/groups.services")
+// const {}=require("../services/groups.services")
+// const {}=require("../services/groups.services")
+// const {}=require("../services/groups.services")
+// const {}=require("../services/groups.services")
 
 const getPublicController=(req,res)=>{
     getAllPublicGroups(req,res)

@@ -1,17 +1,19 @@
 const route=require('express').Router()
 
+// posts crud
 const {getPosts}=require("../controllers/content.controller")
 const {postPosts}=require("../controllers/content.controller")
 const {deletePosts}=require("../controllers/content.controller")
 
+// like
+const {getPostReactions,postPostReactions,deletePostReaction}=require("../controllers/reactions.controller")
+// const {}=require("../controllers/reactions.controller")
+// const {}=require("../controllers/content.controller")
 
-const {getPostReactions}=require("../controllers/content.controller")
-const {postPostReactions}=require("../controllers/content.controller")
-const {deletePostReaction}=require("../controllers/content.controller")
-
-const {getPostComments}=require("../controllers/content.controller")
-const {postPostComments}=require("../controllers/content.controller")
-const {deletePostComment}=require("../controllers/content.controller")
+// comments
+const {getPostComments,postPostComments,deletePostComment}=require("../controllers/reactions.controller")
+// const {}=require("../controllers/content.controller")
+// const {}=require("../controllers/content.controller")
 
 // posts crud
 route.get('/',getPosts)

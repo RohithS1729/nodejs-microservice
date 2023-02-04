@@ -4,9 +4,9 @@ const {getPolls}=require("../controllers/content.controller")
 const {postPolls}=require("../controllers/content.controller")
 const {deletePoll}=require("../controllers/content.controller")
 
-const {getPollVotes}=require("../controllers/content.controller")
-const {postPollVotes}=require("../controllers/content.controller")
-const {deletePollVote}=require("../controllers/content.controller")
+const {getPollVotes,postPollVotes,deletePollVote}=require("../controllers/reactions.controller")
+// const {}=require("../controllers/content.controller")
+// const {}=require("../controllers/content.controller")
 
 
 

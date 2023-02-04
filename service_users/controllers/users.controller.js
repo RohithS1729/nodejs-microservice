@@ -1,13 +1,9 @@
-const loginService=require("../services/loginService")
-const signUpService=require("../services/signUpService")
-const getUserProfile=require("../services/getUserProfile")
+const {loginService,signUpService,getUserProfile}=require("../services/users.service.js")
+// const {}=require("../services/users.service.js")
+// const {}=require("../services/users.service.js")
 
 const signUpController=(req,res)=>{
-
     signUpService(req,res)
-    
-
-
 }
 const loginController=(req,res)=>{
     loginService(req,res)
