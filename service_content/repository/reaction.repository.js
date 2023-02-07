@@ -4,156 +4,153 @@ const OptionData=require("../modals/optionsData")
 var mongoose = require('mongoose');
 const savingData=require('../repository/savingData')
 
-const deleteVoteRepo=(req,res)=>{
+const deleteVoteRepo=async(req,res)=>{
     try{
-        OptionData.findOneAndDelete({$and:[
+        let response= await OptionData.findOneAndDelete({$and:[
             {voterId:req.query.voterId},
             {postId:req.query.postId}
-        ]}).exec((err,data)=>{
-            if(err){
-                res.send({err})
-            }else if(!data){
-                res.send({
-                    msg:'no reaction from that user found'
-                })
-            }else{
-                res.send({
-                    msg:"deleted",
-                    unliked:data
-                })
+        ]})
+        if(!response){
+            return {
+                msg:'no reaction from that user found'
             }
-      
-        })
-    }
-    catch(err){
-        res.send('error ================= in deleteVoteService file',err)
+        }else{
+            return {
+                msg:"deleted",
+                unliked:response
+            }
+        }
+    }catch(err){
+        return {
+            msg:'error ================= in deleteVoteService file',
+            error:err
+        }
     }
     
+    
 }
-const getVotesRepo=(req,res)=>{
+const getVotesRepo=async(req,res)=>{
     try{
-        OptionData.find({    
+        let response = await OptionData.find({    
             postId:req.query.postId
-        }).exec((err,data)=>{
-            if(err){
-                res.send({err})
-            }
-            else if(data.length>0){
-                // let count=data.length
-                res.send(data)
-            }
-            else{
-                res.send('0')
-            }       
         })
-    }
-    catch(err){
-        res.send('error ================= in getVotesService file',err)
+        if(response.length>0){
+            return response
+        }
+        else{
+            return '0'
+        } 
+    }catch(err) {
+        return{
+            msg:'error ================= in getVotesRepo file',
+            error:err
+        }
     }
 
+
 }
-const getOptionVoteRepo=(req,res)=>{
+const getOptionVoteRepo=async(req,res)=>{
     try{
-        OptionData.find({    
+        let response=await OptionData.find({    
             postId:req.query.postId,
             option:selectedVote
-        }).exec((err,data)=>{
-            if(err){
-                res.send({err})
-            }
-            else if(data.length>0){
-                // let count=data.length
-                res.send(data)
-            }
-            else{
-                res.send('0')
-            }       
         })
-    }
-    catch(err){
-        res.send('error ================= in getOptionVoteService file',err)
+        if(response.length>0){
+            return response
+        }
+        else{
+            return '0'
+        }  
+
+    }catch(err){
+        return {
+            msg:'error ================= in getOptionVoteRepo file',
+            error:err
+        }
     }
 
+
 }
-const postVotesRepo=(req,res)=>{
+const postVotesRepo=async(req,res)=>{
     try{
-        OptionData.find({$and:[
+        let response=await  OptionData.find({$and:[
             {voterId:req.body.voterId},
             {postId:req.body.postId}
-        ]}).exec((err,data)=>{
-            if(err){
-                res.send(err)
-            }else if(data.length>0){
-                res.send({msg:'already voted'})
-    
-            }else{
-                let newUser=new OptionData(req.body);
-                let date=new Date().toISOString()
-                newUser.creation=date
-                savingData(newUser,res)
-            }
-            
-    
-        })
+        ]})
+        if(response.length>0){
+            return {msg:'already voted'}
+
+        }else{
+            let newUser=new OptionData(req.body);
+            let date=new Date().toISOString()
+            newUser.creation=date
+            let saving=await savingData(newUser)
+            return saving
+            // savingData(newUser)
+        }
+    }catch(err){
+        return {
+            msg:'error ================= in postVotesRepo file',
+            error:err
+        }
     }
-    catch(err){
-        res.send('error ================= in postVotesService file',err)
-    }
+   
 
 }
-const deleteCommentRepo=(req,res)=>{
+const deleteCommentRepo=async(req,res)=>{
     try{
-        ReactionData.findOneAndDelete({_id:req.query.commentId}).exec((err,data)=>{
-            if(err){
-                res.send({err})
-            }else if(!data){
-                res.send({
-                    msg:'already deleted or no such comment exist'
-                })
-            }else{
-                res.send({
-                    msg:"deleted",
-                    deletedComment:data
-                })
+        let response = await ReactionData.findOneAndDelete({_id:req.query.commentId})
+        if(!response){
+            return {
+                msg:'already deleted or no such comment exist'
             }
-            
-        })
+
+        }else{
+            return {
+                msg:"deleted",
+                deletedComment:response
+            }
+  
+        }
+    }catch(err){
+        return {
+            msg:'error ================= in getReactionRepo file',
+            error:err
+        }
     }
-    catch(err){
-        res.send('error ================= in deleteComment file',err)
-    }
+    
 
 }
-const deleteReactionsRepo=(req,res)=>{
+const deleteReactionsRepo=async(req,res)=>{
     try{
-        ReactionData.findOneAndDelete({$and:[
+        let response=await ReactionData.findOneAndDelete({$and:[
             {likedBy:req.query.likedBy},
             {postId:req.query.postId}
-        ]}).exec((err,data)=>{
-            if(err){
-                res.send({err})
-            }else if(!data){
-                res.send({
-                    msg:'no reaction from that user found'
-                })
-            }else{
-                res.send({
-                    msg:"deleted",
-                    unliked:data
-                })
+        ]})
+        if(!response){
+            return {
+                msg:'no reaction from that user found'
             }
-    
-            
-        })
+         
+        }else{
+            return{
+                msg:"deleted",
+                unliked:response
+            }
+       
+        }
+    }catch(err){
+        return {
+            msg:'error ================= in deleteReactionsRepo file',
+            error:err
+        }
     }
-    catch(err){
-        res.send('error ================= in deleteReactions file',err)
-    }
+   
 
 }
-const getCommentsRepo=(req,res)=>{
+const getCommentsRepo=async(req,res)=>{
     try{
-        ReactionData.find({$and:[
+        let response=await  ReactionData.find({$and:[
             {
                 comment:{$exists:true}
     
@@ -162,27 +159,25 @@ const getCommentsRepo=(req,res)=>{
                 postId:req.query.postId
             }
         ]
-        }).exec((err,data)=>{
-            if(err){
-                res.send({err})
-            }
-            else if(data.length>0){
-                res.send(data)
-            }
-            else{
-                res.send('0')
-            }
-            
         })
+        if(response.length>0){
+            return response
+        }
+        else{
+            return '0'
+        }
+    }catch(err){
+        return {
+            msg:'error ================= in getCommentsRepo file',
+            error:err
+        }
     }
-    catch(err){
-        res.send('error ================= in getCommentsService file',err)
-    }
+    
 
 }
-const getReactionRepo=(req,res)=>{
+const getReactionRepo=async(req,res)=>{
     try{
-        ReactionData.find({$and:[
+        let response =await ReactionData.find({$and:[
             {
                 comment:{$exists:false}
     
@@ -191,39 +186,56 @@ const getReactionRepo=(req,res)=>{
                 postId:req.query.postId
             }
         ]
-        }).exec((err,data)=>{
-            if(err){
-                res.send({err})
-            }
-            else if(data.length>0){
-                // let count=data.length
-                res.send(data)
-            }
-            else{
-                res.send('0')
-            }
-            
-        })
-    }
-    catch(err){
-        res.send('error ================= in getReactionService file',err)
+        });
+        if(response.length>0){
+            return response
+        }else{
+            return '0'
+        }
+    }catch(err){
+        return {
+            msg:'error ================= in getReactionRepo file',
+            error:err
+        }
     }
 
-}
-const postCommentsRepo=(req,res)=>{
-    try{
-        ReactionData.create(req.body,(err,data)=>{
-            if(err){
-                res.send({err})
-            }else{
-                res.send({msg:'created',datas:data})
-            }
+    // try{
+    //     ReactionData.find({$and:[
+    //         {comment:{$exists:false}},
+    //         {
+    //             postId:req.query.postId
+    //         }
+    //     ]
+    //     }).exec((err,data)=>{
+    //         if(err){
+    //             res.send({err})
+    //         }
+    //         else if(data.length>0){
+    //             // let count=data.length
+    //             res.send(data)
+    //         }
+    //         else{
+    //             res.send('0')
+    //         }
             
-        })
+    //     })
+    // }
+    // catch(err){
+    //     res.send('error ================= in getReactionService file',err)
+    // }
+
+}
+const postCommentsRepo=async(req,res)=>{
+    try{
+        let response=await ReactionData.create(req.body)
+        return {msg:'created',datas:response}
+    }catch(err){
+        return {
+            msg:'error ================= in postCommentsRepo file',
+            error:err
+        }
     }
-    catch(err){
-        res.send('error ================= in postComments file',err)
-    }
+   
 
 }
 const postReactionsRepo=async(req,res)=>{
@@ -253,8 +265,10 @@ const postReactionsRepo=async(req,res)=>{
 
         }
     }catch(err){
-
-        return err
+        return {
+            msg:'error ================= in postCommentsRepo file',
+            error:err
+        }
     }
 
 

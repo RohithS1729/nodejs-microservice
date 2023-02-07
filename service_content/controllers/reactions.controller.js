@@ -21,14 +21,14 @@ const {
 //++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-const getPostReactions= (req,res)=>{
-    console.log("controller")
-    console.log(req.test)
-    getReactionService(req,res)
+const getPostReactions=async (req,res)=>{
+    let result=await getReactionService(req,res)
+    res.send(result)
 }
 const postPostReactions=async (req,res)=>{
     try{
-        console.log('controller post')
+     
+        console.log('post like ')
         // let result=await postReactions(req,res) //recieved to process
         // res.send(result) //sent response
 
@@ -39,32 +39,42 @@ const postPostReactions=async (req,res)=>{
         return err
     }
 }
-const postPostComments=(req,res)=>{
-    postComments(req,res)
+const postPostComments=async(req,res)=>{
+    let result=await postComments(req,res)
+    res.send(result)
+    
 }
-const deletePostReaction=(req,res)=>{
-    deleteReactions(req,res)
+const deletePostReaction=async(req,res)=>{
+    let result=await deleteReactions(req,res)
+    res.send(result)
+    
 }
-const getPostComments=(req,res)=>{
-    getCommentsService(req,res)
+const getPostComments=async(req,res)=>{
+    let result=await getCommentsService(req,res)
+    res.send(result)
 }
-const deletePostComment=(req,res)=>{
-    deleteComment(req,res)
+const deletePostComment=async(req,res)=>{
+    let result=await deleteComment(req,res)
+    res.send(result)
+    
 }
 
-const getPollVotes=(req,res)=>{
+const getPollVotes=async(req,res)=>{
     if(req.query.option){
-        getOptionVoteService(req,res,req.query.option)
+        let result=await getOptionVoteService(req,res)
+        res.send(result)
     }else{
-
-        getVotesService(req,res)
+        let result=await getVotesService(req,res)
+        res.send(result)
     }
 }
-const postPollVotes=(req,res)=>{
-    postVotesService(req,res)
+const postPollVotes=async(req,res)=>{
+    let result=await postVotesService(req,res)
+    res.send(result)
 }
-const deletePollVote=(req,res)=>{
-    deleteVoteService(req,res)
+const deletePollVote=async(req,res)=>{
+    let result=await deleteVoteService(req,res)
+    res.send(result)
 }
 
 

@@ -1,7 +1,7 @@
 const router=require("express").Router()
 const postsRoute=require("./posts.route")
 const pollsRoute=require("./polls.route")
-
+console.log('success')
 
 
 router.use('/posts',postsRoute)

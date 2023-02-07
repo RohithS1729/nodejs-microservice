@@ -18,58 +18,9 @@ const fileUpload=require("express-fileupload")
 app.use(fileUpload({
     useTempFiles:true
 }))
-
-//++++++++++++++++++++++++++++
-// const amqp = require("amqplib");
-var channel, connection;
-
-connect();
-async function connect() {
-    try {
-        const amqpServer = process.env.AMPQUrl;
-        connection = await amqp.connect(amqpServer);
-        channel = await connection.createChannel();
-        await channel.assertQueue("tasks");
-        // channel.consume("tasks", data => {
-        //     console.log(`Received data at 8000: ${Buffer.from(data.content)}`);
-        //     channel.ack(data);
-        // });
-    } catch (ex) {
-        console.error(ex);
-    }
-}
-
-async function consumeData(req,res,next){
-    try{
-        channel.consume("tasks", data => {
-            console.log(`Received data at 8000: ${Buffer.from(data.content)}`);
-            
-            channel.ack(data);
-            // next()
-            // return data.content
-
-        });
-    }catch(err){
-        console.log(err)
-    }
-}
-function testMiddleware(req,res,next){
-    // console.log('in middleware')
-    req.test='test'
-    next()
-}
-
-
-//+++++++++++++++++++++++++++++++
-
-
 //local modules
-const router=require('./api-router/index')
-
-    
-
-
-
+const router=require('./api-router/index');
+const redirectToRoute=require('./redirectToRoute.js')
 
 //dbms
 
@@ -77,14 +28,72 @@ mongoose.connect(process.env.CONNECTION_STRING);
 const db= mongoose.connection;
 db.on('error',()=>{console.log('did not connect to db')});
 db.on('open',()=>{console.log('started listening to db')});
+//++++++++++++++++++++++++++++
+// const amqp = require("amqplib");
+var channel, connection;
+let request;
+connect();
+async function connect() {
+    console.log('connect section')
+    try {
+        const amqpServer = process.env.AMPQUrl;
+        connection = await amqp.connect(amqpServer);
+        channel = await connection.createChannel();
+        await channel.assertQueue("tasks");
 
 
 
-app.use(testMiddleware,router)
-// app.get('/posts/like',consumeData,()=>{
-//     res.send('service_content')
-// })
+        channel.consume("tasks", data => {
+            console.log(`Received data at 8000: ${Buffer.from(data.content)}`);
+
+            if(data){
+                console.log('call route')
+                // redirectToRoute(JSON.parse(data.content))
+
+            }
+            channel.ack(data);
+        });
+    } catch (ex) {
+        console.error(ex);
+    }
+}
+
+
+function testMiddleware(req,res,next){
+    console.log('in middleware')
+    // console.log('in middleware')
+    req.data=data
+    next()
+}
+
+
+//+++++++++++++++++++++++++++++++
+
+
+
+
+
+
+app.use(router)
+
 
 app.listen(process.env.PORT,()=>{
     console.log("gateway is listening to post 8002")
 })
+
+
+// async function consumeData(channel){
+//     try{
+//         channel.consume("tasks", data => {
+//             console.log(`Received data at 8000: ${Buffer.from(data.content)}`);
+//             postReactions(data)
+//             channel.ack(data);
+//             // next()
+//             // return data.content
+
+//         });
+//     }catch(err){
+//         console.log(err)
+//     }
+// }
+// consumeData(req.channel)
