@@ -4,10 +4,13 @@ const {signUpRepo,loginRepo,getUsersRepo,getUserProfileRepo}=require("../reposit
 const signUpService=async(req,res)=>{
     try{
         let result=await signUpRepo(req,res)
-        console.log(result)
+        return result
     }
     catch(err){
-        res.send('error ================= in signUpService==============',err)
+        return {
+            msg:'error ================= in signUpService file',
+            error:err
+        }
     }
 }
 const loginService=async (req,res)=>{
@@ -16,19 +19,29 @@ const loginService=async (req,res)=>{
         return result       
     }
     catch(err){
-        res.send('error ================= in loginService',err)
+        return {
+            msg:'error ================= in loginService file',
+            error:err
+        }
     }
 }
-const getUserProfile=(req,res)=>{
+const getUserProfile=async(req,res)=>{
     try{
         if(req.query.id){
-            getUserProfileRepo(req,res)
+            
+            let result =await getUserProfileRepo(req,res)
+            return result  
         }else{
-            getUsersRepo(req,res)
+            let result =await getUsersRepo(req,res)
+            return result  
+            
 
         }
-    }    catch(err){
-        res.send('error ================= in getUserProfile',err)
+    }catch(err){
+        return {
+            msg:'error ================= in getUserProfile file',
+            error:err
+        }
     }
 }
 module.exports={signUpService,loginService,getUserProfile}
