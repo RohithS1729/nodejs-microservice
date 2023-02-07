@@ -12,24 +12,32 @@ const {
 
 
 }=require("../services/reaction.service")
-
-// const deleteVoteService=require("../services/deleteVoteService")
-// const =require("../services/getVotesService.js")
-// const =require("../services/getOptionVoteService.js")
-// const =require("../services/postVotesService.js")
-// const =require("../services/deleteComment.js")
-// const =require("../services/deleteReactions")
-// const =require("../services/getCommentsService.js")
-// const =require("../services/getReactionService")
-// const =require("../services/postComments.js")
-// const =require("../services/postReactions")
+//++++++++++++++++++++++++++++++++++++++++++++++
+// const amqplib = require('amqplib/callback_api');
 
 
-const getPostReactions=(req,res)=>{
+
+
+//++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+const getPostReactions= (req,res)=>{
+    console.log("controller")
+    console.log(req.test)
     getReactionService(req,res)
 }
-const postPostReactions=(req,res)=>{
-    postReactions(req,res)
+const postPostReactions=async (req,res)=>{
+    try{
+        console.log('controller post')
+        // let result=await postReactions(req,res) //recieved to process
+        // res.send(result) //sent response
+
+
+
+
+    }catch(err){
+        return err
+    }
 }
 const postPostComments=(req,res)=>{
     postComments(req,res)

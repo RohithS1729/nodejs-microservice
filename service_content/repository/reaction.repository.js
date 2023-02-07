@@ -226,33 +226,64 @@ const postCommentsRepo=(req,res)=>{
     }
 
 }
-const postReactionsRepo=(req,res)=>{
+const postReactionsRepo=async(req,res)=>{
+
     try{
-        ReactionData.find({$and:[
-            {likedBy:req.body.likedBy},
-            {postId:req.body.postId}
-        ]}).exec((err,data)=>{
-            if(err){
-                res.send({err})
-            }
-            else if(data.length>0){
-    
-                res.send('already Liked')
-            }
-            else{
-    
-                let newUser=new ReactionData(req.body);
-                let date= new Date().toISOString()
-                newUser.creation=date
-                
-                savingData(newUser,res)
-            }
+        
+        let response =await ReactionData.find({$and:[
+            {likedBy:req.likedBy},
+            {postId:req.postId}
+        ]})
+
+        if(response.length>0){
+            return {msg:'already Liked'}
+        }else{
+            let newUser=new ReactionData(req);
+            let date= new Date().toISOString()
+            newUser.creation=date
             
-        })
+            // savingData(newUser,res)
+            let uploadNew=await newUser.save()
+            if(uploadNew){
+                return {
+                    msg:'posted',
+                    id:uploadNew._id
+                }
+            }
+
+        }
+    }catch(err){
+
+        return err
     }
-    catch(err){
-        res.send('error ================= in postReactions file',err)
-    }
+
+
+    // try{
+    //     ReactionData.find({$and:[
+    //         {likedBy:req.body.likedBy},
+    //         {postId:req.body.postId}
+    //     ]}).exec((err,data)=>{
+    //         if(err){
+    //             res.send({err})
+    //         }
+    //         else if(data.length>0){
+    
+    //             res.send('already Liked')
+    //         }
+    //         else{
+    
+    //             let newUser=new ReactionData(req.body);
+    //             let date= new Date().toISOString()
+    //             newUser.creation=date
+                
+    //             savingData(newUser,res)
+    //         }
+            
+    //     })
+    // }
+    // catch(err){
+    //     res.send('error ================= in postReactions file',err)
+    // }
 
 }
 
