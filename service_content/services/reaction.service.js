@@ -11,7 +11,10 @@ const {
     postReactionsRepo
 } = require("../repository/reaction.repository")
 
+//+++++++++++++++++++++++++++++++++
 
+
+//++++++++++++++++++++++++++++++++++
 
 const deleteVoteService=(req,res)=>{
     deleteVoteRepo(req,res)
@@ -24,7 +27,7 @@ const getVotesService=(req,res)=>{
 }
 
 const getOptionVoteService=(req,res,selectedVote)=>{
-    getOptionVoteRepo(req,res)
+    getOptionVoteRepo(req,res,selectedVote)
 
 
 }
@@ -54,8 +57,16 @@ const postComments=(req,res)=>{
     postCommentsRepo(req,res)
 
 }
-const postReactions=(req,res)=>{
-    postReactionsRepo(req,res)
+const postReactions=async (bufferData)=>{
+    try{
+        let req=JSON.parse(bufferData.content)
+        console.log(req,'req')
+        let response=await postReactionsRepo(req)
+        console.log(response)
+        return response
+    }catch(err){
+        return err
+    }
 
 
 
