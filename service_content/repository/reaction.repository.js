@@ -74,14 +74,14 @@ const getOptionVoteRepo=async(req,res)=>{
 const postVotesRepo=async(req,res)=>{
     try{
         let response=await  OptionData.find({$and:[
-            {voterId:req.body.voterId},
-            {postId:req.body.postId}
+            {voterId:req.voterId},
+            {postId:req.postId}
         ]})
         if(response.length>0){
             return {msg:'already voted'}
 
         }else{
-            let newUser=new OptionData(req.body);
+            let newUser=new OptionData(req);
             let date=new Date().toISOString()
             newUser.creation=date
             let saving=await savingData(newUser)
@@ -227,7 +227,8 @@ const getReactionRepo=async(req,res)=>{
 }
 const postCommentsRepo=async(req,res)=>{
     try{
-        let response=await ReactionData.create(req.body)
+        console.log(req)
+        let response=await ReactionData.create(req)
         return {msg:'created',datas:response}
     }catch(err){
         return {

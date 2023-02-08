@@ -87,8 +87,16 @@ const getPosts=async(req,res)=>{
 }
 const postPolls=async(req,res)=>{
     try{
-        let result = await postPollsService(req,res)
-        res.send(result)
+        // let result = await postPollsService(req,res)
+        // res.send(result)
+        let channel=req.channel
+        channel.consume("tasks", data => {
+            console.log(`Received data at 8000: ${Buffer.from(data.content)}`);
+            let req=JSON.parse(data.content)
+            postPollsService(req)
+
+            channel.ack(data);
+        });
         
     }catch(err){
         return {
@@ -103,8 +111,16 @@ const postPolls=async(req,res)=>{
 
 const postPosts=async(req,res)=>{
     try{
-        let result = await posting(req,res)
-        res.send(result)
+        // let result = await posting(req,res)
+        // res.send(result)
+        let channel=req.channel
+        channel.consume("tasks", data => {
+            console.log(`Received data at 8000: ${Buffer.from(data.content)}`);
+            let req=JSON.parse(data.content)
+            posting(req)
+
+            channel.ack(data);
+        });
         
     }catch(err){
         return {

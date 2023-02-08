@@ -49,7 +49,8 @@ const getOptionVoteService=async(req,res,selectedVote)=>{
 const postVotesService=async(req,res)=>{
     
     try{
-        let response=await  postVotesRepo(req,selectedVote)
+        let response=await  postVotesRepo(req)
+        console.log(response)
         return response
     }catch(err){
         return err
@@ -106,13 +107,13 @@ const postComments=async(req,res)=>{
         return err
     }
 }
-const postReactions=async (bufferData)=>{
+const postReactions=async (req)=>{
     try{
-        let req=JSON.parse(bufferData.content)
-        console.log(req,'req')
+        // let req=JSON.parse(bufferData.content)
         let response=await postReactionsRepo(req)
         console.log(response)
         return response
+
     }catch(err){
         return err
     }

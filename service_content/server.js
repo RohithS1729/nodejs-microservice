@@ -3,7 +3,6 @@ const dotenv=require("dotenv")
 dotenv.config()
 const mongoose=require("mongoose")
 const amqp = require("amqplib")
-// const queue = 'tasks';
 
 const cors=require("cors")
 
@@ -20,7 +19,6 @@ app.use(fileUpload({
 }))
 //local modules
 const router=require('./api-router/index');
-const redirectToRoute=require('./redirectToRoute.js')
 
 //dbms
 
@@ -29,12 +27,9 @@ const db= mongoose.connection;
 db.on('error',()=>{console.log('did not connect to db')});
 db.on('open',()=>{console.log('started listening to db')});
 //++++++++++++++++++++++++++++
-// const amqp = require("amqplib");
 var channel, connection;
-let request;
 connect();
 async function connect() {
-    // console.log('connect section')
     try {
         const amqpServer = process.env.AMPQUrl;
         connection = await amqp.connect(amqpServer);
@@ -48,7 +43,6 @@ async function connect() {
 
             // if(data){
             //     console.log('call route')
-            //     // redirectToRoute(JSON.parse(data.content))
 
             // }
         //     channel.ack(data);
@@ -59,9 +53,8 @@ async function connect() {
 }
 
 
-function testMiddleware(req,res,next){
-    console.log('in middleware')
-    // console.log('in middleware')
+function middlewareAddChannel(req,res,next){
+    console.log('middelware')
     req.channel=channel
     next()
 }
@@ -71,26 +64,10 @@ function testMiddleware(req,res,next){
 
 
 
-app.use(testMiddleware,router)
+app.use(middlewareAddChannel,router)
 
 
 app.listen(process.env.PORT,()=>{
     console.log("gateway is listening to post 8002")
 })
 
-
-// async function consumeData(channel){
-//     try{
-//         channel.consume("tasks", data => {
-//             console.log(`Received data at 8000: ${Buffer.from(data.content)}`);
-//             postReactions(data)
-//             channel.ack(data);
-//             // next()
-//             // return data.content
-
-//         });
-//     }catch(err){
-//         console.log(err)
-//     }
-// }
-// consumeData(req.channel)

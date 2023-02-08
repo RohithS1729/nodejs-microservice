@@ -12,36 +12,34 @@ const {
 
 
 }=require("../services/reaction.service")
-//++++++++++++++++++++++++++++++++++++++++++++++
-// const amqplib = require('amqplib/callback_api');
 
-
-
-
-//++++++++++++++++++++++++++++++++++++++++++++++++
 
 
 const getPostReactions=async (req,res)=>{
-    let result=await getReactionService(req,res)
-    res.send(result)
+    try{
+
+        let result=await getReactionService(req,res)
+        res.send(result)
+    }catch(err){
+        return {
+            msg:'error ================= in getPostReactions file',
+            error:err
+        }
+    }
 }
 const postPostReactions=async (req,res)=>{
     try{
-        // let result=await postReactions(req,res) //recieved to process
-        // res.send(result) //sent response
-        function channelAccess(channel){
+        
+            let channel=req.channel
             channel.consume("tasks", data => {
                 console.log(`Received data at 8000: ${Buffer.from(data.content)}`);
-    
-                // if(data){
-                //     console.log('call route')
-                //     // redirectToRoute(JSON.parse(data.content))
-    
-                // }
+                let req=JSON.parse(data.content)
+                postReactions(req)
+
                 channel.ack(data);
             });
-        }
-        channelAccess(req.channel)
+  
+
 
 
     }catch(err){
@@ -49,41 +47,110 @@ const postPostReactions=async (req,res)=>{
     }
 }
 const postPostComments=async(req,res)=>{
-    let result=await postComments(req,res)
-    res.send(result)
+    try{
+
+        // let result=await postComments(req,res)
+        // res.send(result)
+        let channel=req.channel
+        channel.consume("tasks", data => {
+            console.log(`Received data at 8000: ${Buffer.from(data.content)}`);
+            let req=JSON.parse(data.content)
+            postComments(req)
+
+            channel.ack(data);
+        });
+    }catch(err){
+        return {
+            msg:'error ================= in postPostComments file',
+            error:err
+        }
+    }
     
 }
 const deletePostReaction=async(req,res)=>{
-    let result=await deleteReactions(req,res)
-    res.send(result)
-    
+    try{
+        let result=await deleteReactions(req,res)
+        res.send(result)
+
+    }catch(err){
+        return {
+            msg:'error ================= in deletePostReaction file',
+            error:err
+        }
+    }
 }
 const getPostComments=async(req,res)=>{
-    let result=await getCommentsService(req,res)
-    res.send(result)
+    try{
+        let result=await getCommentsService(req,res)
+        res.send(result)
+    }catch(err){
+        return {
+            msg:'error ================= in getPostComments file',
+            error:err
+        }
+    }
 }
 const deletePostComment=async(req,res)=>{
-    let result=await deleteComment(req,res)
-    res.send(result)
+    try{
+        let result=await deleteComment(req,res)
+        res.send(result)
+    }catch(err){
+        return {
+            msg:'error ================= in deletePostComment file',
+            error:err
+        }
+    }
     
 }
 
 const getPollVotes=async(req,res)=>{
-    if(req.query.option){
-        let result=await getOptionVoteService(req,res)
-        res.send(result)
-    }else{
-        let result=await getVotesService(req,res)
-        res.send(result)
+    try{
+        if(req.query.option){
+            let result=await getOptionVoteService(req,res)
+            res.send(result)
+        }else{
+            let result=await getVotesService(req,res)
+            res.send(result)
+        }
+
+    }catch(err){
+        return {
+            msg:'error ================= in getPollVotes file',
+            error:err
+        }
     }
 }
 const postPollVotes=async(req,res)=>{
-    let result=await postVotesService(req,res)
-    res.send(result)
+    try{
+        // let result=await postVotesService(req,res)
+        // res.send(result)
+        let channel=req.channel
+        channel.consume("tasks", data => {
+            console.log(`Received data at 8000: ${Buffer.from(data.content)}`);
+            let req=JSON.parse(data.content)
+            postVotesService(req)
+
+            channel.ack(data);
+        });
+
+    }catch(err){
+        return {
+            msg:'error ================= in postPollVotes file',
+            error:err
+        }
+    }
 }
 const deletePollVote=async(req,res)=>{
-    let result=await deleteVoteService(req,res)
-    res.send(result)
+    try{
+
+        let result=await deleteVoteService(req,res)
+        res.send(result)
+    }catch(err){
+        return {
+            msg:'error ================= in deletePollVote file',
+            error:err
+        }
+    }
 }
 
 

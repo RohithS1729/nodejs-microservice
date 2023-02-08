@@ -9,6 +9,8 @@ const {
     getSpecificPostsRepo
 }=require("../repository/content.repository")
 const cloudinary = require('cloudinary').v2
+const savingData=require('../repository/savingData')
+const BlogData=require("../modals/postData")
 
 
 
@@ -107,15 +109,15 @@ const getSpecificPostsService=async(req,res,option)=>{
     }
 }
 async function postPollsService(req,res){
-    
     try{
-            let date= new Date().toISOString()
-            let newBlog=new BlogData(req.body)
-            newBlog.creation=date
+        let newBlog= new BlogData(req)
+        let date= new Date().toISOString()
+        newBlog.creation=date
     
             
-    
+        
             let saving=await savingData(newBlog)
+            // let saving=await newBlog.save()
             return saving
     }
     catch(err){
@@ -132,84 +134,103 @@ async function postPollsService(req,res){
 
 }
 async function posting(req,res){
+    try{
+        let newBlog= new BlogData(req)
+        let date= new Date().toISOString()
+        newBlog.creation=date
     
-    cloudinary.config({ 
-        cloud_name: process.env.cloud_name, 
-        api_key: process.env.api_key, 
-        api_secret: process.env.api_secret,
-        secure: process.env.SECURE
-      });
-    
-    
-    
-        try{
-            if(req.files){
-                const file=req.files.media;
-        
-                cloudinary.uploader.upload(file.tempFilePath,{resource_type:"auto"},(err,data)=>{
-        
-                if(err){
-                    res.send(err)
-                }else{
-                    let date= new Date().toISOString()
-                    let newBlog=new BlogData()
-                    newBlog.creation=date
-                    newBlog.type=req.query.type
             
-                    if(req.query.groupId){
+    
+        let saving=await savingData(newBlog)
+        // let saving=await newBlog.save()
+        return saving
+
+
+    }
+    catch(err){
+        return {
+            msg:'error ================= in postPollsService file',
+            error:err
+        }
+    }
+
+    // cloudinary.config({ 
+    //     cloud_name: process.env.cloud_name, 
+    //     api_key: process.env.api_key, 
+    //     api_secret: process.env.api_secret,
+    //     secure: process.env.SECURE
+    //   });
+    
+    
+    
+        // try{
+        //     if(req.files){
+        //         const file=req.files.media;
+        
+        //         cloudinary.uploader.upload(file.tempFilePath,{resource_type:"auto"},(err,data)=>{
+        
+        //         if(err){
+        //             res.send(err)
+        //         }else{
+        //             let date= new Date().toISOString()
+        //             let newBlog=new BlogData()
+        //             newBlog.creation=date
+        //             newBlog.type=req.query.type
             
-                            newBlog.userId=req.query.userId
-                            newBlog.groupId=req.query.groupId
-                            newBlog.groupType=req.query.groupType
-                    }else {
-                            newBlog.userId=req.query.userId
+        //             if(req.query.groupId){
+            
+        //                     newBlog.userId=req.query.userId
+        //                     newBlog.groupId=req.query.groupId
+        //                     newBlog.groupType=req.query.groupType
+        //             }else {
+        //                     newBlog.userId=req.query.userId
                             
-                    }
+        //             }
             
-                    newBlog.title=req.query.title
-                    newBlog.imageUrl=data.url
-            
-            
+        //             newBlog.title=req.query.title
+        //             newBlog.imageUrl=data.url
             
             
             
-                    savingData(newBlog,res)
-                }
+            
+            
+        //             savingData(newBlog,res)
+        //         }
         
-            })
-            }else{
-                let date= new Date().toISOString()
-                let newBlog=new BlogData()
-                newBlog.creation=date
-                newBlog.type=req.query.type
+        //     })
+        //     }else{
+        //         let date= new Date().toISOString()
+        //         let newBlog=new BlogData()
+        //         newBlog.creation=date
+        //         newBlog.type=req.query.type
         
-                if(req.query.groupId){
+        //         if(req.query.groupId){
         
-                        newBlog.userId=req.query.userId
-                        newBlog.groupId=req.query.groupId
-                        newBlog.groupType=req.query.groupType
-                }else {
-                        newBlog.userId=req.query.userId
+        //                 newBlog.userId=req.query.userId
+        //                 newBlog.groupId=req.query.groupId
+        //                 newBlog.groupType=req.query.groupType
+        //         }else {
+        //                 newBlog.userId=req.query.userId
                         
-                }
+        //         }
         
-                newBlog.title=req.query.title
-        
-        
+        //         newBlog.title=req.query.title
         
         
-                let saving=await savingData(newBlog)
-                return saving
-            }
+        
+        
+        //         let saving=await savingData(newBlog)
+        //         return saving
+        //     }
             
-        }
+        // }
         
-        catch(err){
-            return {
-                msg:'error ================= in posting file',
-                error:err
-            }
-        }
+        // catch(err){
+        //     return {
+        //         msg:'error ================= in posting file',
+        //         error:err
+        //     }
+        // }
     
     
         

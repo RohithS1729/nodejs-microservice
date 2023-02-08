@@ -4,7 +4,7 @@ let ObjectId = Schema.ObjectId
 
 const postsData=new Schema({
     creation:String,
-    modified:String,
+    // modified:String,
     title:String,
     type:String,
     
