@@ -7,74 +7,89 @@ const {addFollowerRepo,
 }=require("../repository/groups.repository")
 
 
-const addfollowerService=(req,res)=>{
-    try{ 
-        addFollowerRepo(req,res)
-        
+const addfollowerService=async(req,res)=>{
 
-    }
-    catch(err){
-        res.send('error ================= in addfollowerService file',err)
-    }
-}
-const createGroupService=(req,res)=>{
     try{
-        createGroupRepo(req,res)
-        
+        let result=await addFollowerRepo(req,res)
+        return result
     }
     catch(err){
-        res.send('error ================= in createGroupService file',err)
+        return {
+            msg:'error ================= in addfollowerService file',
+            error:err
+        }
     }
-
-
 }
-const getAllPublicGroups=(req,res)=>{
-
-    // try{
-        getPublicGroupsRepo(req,res)
-
-    // }
-    // catch(err){
-    //     res.send('error ================= in getAllPublicGroups file',err)
-    // }
-
-}
-const getGroupProfileService=(req,res)=>{
+const createGroupService=async(req,res)=>{
     try{
-        getPublicGroupsProfileRepo(req,res)
+        let result=await createGroupRepo(req,res)
+        return result
     }
     catch(err){
-        res.send('error ================= in getPollsService file',err)
+        return {
+            msg:'error ================= in createGroupService file',
+            error:err
+        }
+    }
+
+
+}
+const getAllPublicGroups=async(req,res)=>{
+    try{
+        let result=await getPublicGroupsRepo(req,res)
+        return result
+    }
+    catch(err){
+        return {
+            msg:'error ================= in getAllPublicGroups file',
+            error:err
+        }
+    }
+   
+      
+
+
+}
+const getGroupProfileService=async(req,res)=>{
+    try{
+        let result=await getPublicGroupsProfileRepo(req,res)
+        return result
+    }
+    catch(err){
+        return {
+            msg:'error ================= in getGroupProfileService file',
+            error:err
+        }
     }
     
 
 
 }
-const privateGetGroupProfileService=(req,res)=>{
-
+const privateGetGroupProfileService=async(req,res)=>{
     try{
-        privateGetGroupProfileRepo(req,res)
-        
+        let result=await privateGetGroupProfileRepo(req,res)
+        return result
     }
     catch(err){
-        res.send('error ================= in getPollsService file',err)
+        return {
+            msg:'error ================= in privateGetGroupProfileService file',
+            error:err
+        }
     }
-
 
 
 }
-const privateGetGroupService=(req,res)=>{
-
+const privateGetGroupService=async(req,res)=>{
     try{
-        privateGetGroupRepo(req,res)
-
+        let result=await privateGetGroupRepo(req,res)
+        return result
     }
     catch(err){
-        res.send('error ================= in privateGetGroupService file',err)
-    }
-
-
-    
+        return {
+            msg:'error ================= in privateGetGroupService file',
+            error:err
+        }
+    }   
 }
 
 

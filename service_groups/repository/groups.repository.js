@@ -3,55 +3,76 @@ const GroupData=require("../modals/groupData")
 const savingData=require('../repository/savingData')
 const mongoose=require("mongoose")
 
-const addFollowerRepo=(req,res)=>{
-    Members.find({$and:[{userId:req.body.userId},{groupId:req.body.groupId}]}).exec((err,data)=>{
-        if(err){
-            res.send(err)
-        }else if(data.length>0){
-            res.send({
+const addFollowerRepo=async(req,res)=>{
+    try{
+        let response=await Members.find({$and:[{userId:req.body.userId},{groupId:req.body.groupId}]})
+        if(response.length>0){
+            return {
                 msg:'already followed'
-            })
+            }
+          
         }else{
             const newUser= new Members(req.body);
             let date=new Date().toISOString()
             newUser.creation=date
-            savingData(newUser,res)
+            let saving=await savingData(newUser)
+            return saving
 
         }
-    })
+    }catch(err){
+        return {
+            msg:'error ================= in addFollowerRepo file',
+            error:err
+        }
+    }
+   
 }
-const createGroupRepo=(req,res)=>{
-    GroupData.findOne({GroupName:req.body.GroupName}).exec((err,data)=>{
-        if(err){
-            res.send(err)
-        }else if(data){
-            res.send({
+const createGroupRepo=async(req,res)=>{
+    try{
+        let response=await GroupData.findOne({GroupName:req.body.GroupName})
+        if(response){
+            return {
                 msg:'user already exists'
-            })
+            }
         }else{
             const newUser= new GroupData(req.body);
             let date=new Date().toISOString()
             newUser.creation=date
-
-            savingData(newUser,res)
+            let saving=await savingData(newUser)
+            return saving
 
         }
-    })
-}
-const getPublicGroupsRepo=(req,res)=>{
-    GroupData.find({GroupPrivacy:"Public"}).exec((err,data)=>{
-        if(err){
-            res.send(err)
-        }else{
-            res.send(data)
+    }catch(err){
+        return {
+            msg:'error ================= in addFollowerRepo file',
+            error:err
         }
-    })
+    }
+
 }
-const getPublicGroupsProfileRepo=(req,res)=>{
-    if(req.query.groupId){
+const getPublicGroupsRepo=async(req,res)=>{
+    try{
+        let response=await GroupData.find({GroupPrivacy:"Public"})
+        return response
+
+    }catch(err){
+        return {
+            msg:'error ================= in getPublicGroupsRepo file',
+            error:err
+        }
+    }
+    // GroupData.find({GroupPrivacy:"Public"}).exec((err,data)=>{
+    //     if(err){
+    //         res.send(err)
+    //     }else{
+    //         res.send(data)
+    //     }
+    // })
+}
+const getPublicGroupsProfileRepo=async(req,res)=>{
+    try{
         let id = mongoose.Types.ObjectId(req.query.groupId);
-        
-        GroupData.aggregate(
+        let response=await GroupData.aggregate(
             [   
                 {
                     $match:{_id:id}
@@ -65,24 +86,48 @@ const getPublicGroupsProfileRepo=(req,res)=>{
                     }
                 }                   
             ]
-        ).exec((err,data)=>{
-            if (err){res.send(err)} 
-            else{
-                res.send(data)
-            }
-
-        })
+        )
+        return response
+    }catch(err){
+        return {
+            msg:'error ================= in getPublicGroupsProfileRepo file',
+            error:err
+        }
     }
-    else{
-        res.send({msg:'remove /profile'})
-
-    }
-}
-const privateGetGroupProfileRepo=(req,res)=>{
-    if(req.query.groupId){
-        let id = mongoose.Types.ObjectId(req.query.groupId);
+    // if(req.query.groupId){
+    //     let id = mongoose.Types.ObjectId(req.query.groupId);
         
-        GroupData.aggregate(
+    //     GroupData.aggregate(
+    //         [   
+    //             {
+    //                 $match:{_id:id}
+    //             },
+    //             {
+    //                 $lookup:{
+    //                     from:"data-members",
+    //                     localField:"_id",
+    //                     foreignField:"groupId",
+    //                     as:'members'
+    //                 }
+    //             }                   
+    //         ]
+    //     ).exec((err,data)=>{
+    //         if (err){res.send(err)} 
+    //         else{
+    //             res.send(data)
+    //         }
+
+    //     })
+    // }
+    // else{
+    //     res.send({msg:'remove /profile'})
+
+    // }
+}
+const privateGetGroupProfileRepo=async(req,res)=>{
+    try{
+        let id = mongoose.Types.ObjectId(req.query.groupId);
+        let response=await GroupData.aggregate(
             [   
                 {
                     $match:{_id:id}
@@ -96,27 +141,61 @@ const privateGetGroupProfileRepo=(req,res)=>{
                     }
                 }                   
             ]
-        ).exec((err,data)=>{
-            if (err){res.send(err)} 
-            else{
-                res.send(data)
-            }
-
-        })
-    }
-    else{
-        res.send({msg:'remove /profile'})
-
-    }
-}
-const privateGetGroupRepo=(req,res)=>{
-    GroupData.find({GroupPrivacy:"Private"}).exec((err,data)=>{
-        if(err){
-            res.send(err)
-        }else{
-            res.send(data)
+        )
+        return response
+    }catch(err){
+        return {
+            msg:'error ================= in privateGetGroupProfileRepo file',
+            error:err
         }
-    })
+    }
+    // if(req.query.groupId){
+    //     let id = mongoose.Types.ObjectId(req.query.groupId);
+        
+    //     GroupData.aggregate(
+    //         [   
+    //             {
+    //                 $match:{_id:id}
+    //             },
+    //             {
+    //                 $lookup:{
+    //                     from:"data-members",
+    //                     localField:"_id",
+    //                     foreignField:"groupId",
+    //                     as:'members'
+    //                 }
+    //             }                   
+    //         ]
+    //     ).exec((err,data)=>{
+    //         if (err){res.send(err)} 
+    //         else{
+    //             res.send(data)
+    //         }
+
+    //     })
+    // }
+    // else{
+    //     res.send({msg:'remove /profile'})
+
+    // }
+}
+const privateGetGroupRepo=async(req,res)=>{
+    try{
+        let response = await GroupData.find({GroupPrivacy:"Private"})
+        return response
+    }catch(err){
+        return {
+            msg:'error ================= in privateGetGroupRepo file',
+            error:err
+        }
+    }
+    // GroupData.find({GroupPrivacy:"Private"}).exec((err,data)=>{
+    //     if(err){
+    //         res.send(err)
+    //     }else{
+    //         res.send(data)
+    //     }
+    // })
 }
 
 

@@ -34,7 +34,7 @@ var channel, connection;
 let request;
 connect();
 async function connect() {
-    console.log('connect section')
+    // console.log('connect section')
     try {
         const amqpServer = process.env.AMPQUrl;
         connection = await amqp.connect(amqpServer);
@@ -43,16 +43,16 @@ async function connect() {
 
 
 
-        channel.consume("tasks", data => {
-            console.log(`Received data at 8000: ${Buffer.from(data.content)}`);
+        // channel.consume("tasks", data => {
+        //     console.log(`Received data at 8000: ${Buffer.from(data.content)}`);
 
-            if(data){
-                console.log('call route')
-                // redirectToRoute(JSON.parse(data.content))
+            // if(data){
+            //     console.log('call route')
+            //     // redirectToRoute(JSON.parse(data.content))
 
-            }
-            channel.ack(data);
-        });
+            // }
+        //     channel.ack(data);
+        // });
     } catch (ex) {
         console.error(ex);
     }
@@ -62,7 +62,7 @@ async function connect() {
 function testMiddleware(req,res,next){
     console.log('in middleware')
     // console.log('in middleware')
-    req.data=data
+    req.channel=channel
     next()
 }
 
@@ -71,10 +71,7 @@ function testMiddleware(req,res,next){
 
 
 
-
-
-
-app.use(router)
+app.use(testMiddleware,router)
 
 
 app.listen(process.env.PORT,()=>{

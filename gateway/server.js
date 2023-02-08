@@ -35,6 +35,7 @@ const createSession = async (req,res,next) => {
     if(req.method==='POST'){
       await channel.sendToQueue("tasks", Buffer.from(JSON.stringify(req.body)));
       res.send('request sent!! task in progress')
+      next()
     }else{
       next()
 

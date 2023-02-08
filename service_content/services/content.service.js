@@ -1,8 +1,3 @@
-
-
-
-
-
 const {
     deletePollRepo,
     deletePostsRepo,
@@ -17,61 +12,101 @@ const cloudinary = require('cloudinary').v2
 
 
 
-const deletePollService=(req,res)=>{
-    deletePollRepo(req,res)
+const deletePollService=async(req,res)=>{
+    try{
+        let result=await deletePollRepo(req,res)
+        return result
+    }
+    catch(err){
+        return {
+            msg:'error ================= in deletePollService file',
+            error:err
+        }
+    }
 
 }
-const deletePostsService=(req,res)=>{
-    deletePostsRepo(req,res)
+const deletePostsService=async(req,res)=>{
+    try{
+        let result=await deletePostsRepo(req,res)
+        return result
+    }
+    catch(err){
+        return {
+            msg:'error ================= in deletePostsService file',
+            error:err
+        }
+    }
     
 }
-const getSpecificPollsService=(req,res,option)=>{
-    getSpecificPollsRepo(req,res,option)
+const getSpecificPollsService=async(req,res,option)=>{
+    try{
+        let result=await getSpecificPollsRepo(req,res,option)
+        return result
+    }
+    catch(err){
+        return {
+            msg:'error ================= in getSpecificPollsService file',
+            error:err
+        }
+    }
 
 }
 
-const getPollsService=(req,res)=>{
+const getPollsService=async(req,res)=>{
     
     try{
         if(req.query.getId){
-            // let id=req.query.getId
-            getPollsSpecificRepo(req,res)
-            
+            let result=await getPollsSpecificRepo(req,res)
+            return result
         }else{
-            getPollsAllRepo(req,res)
-            
+            let result=await getPollsAllRepo(req,res)
+            return result
 
         }
     }
     catch(err){
-        res.send('error ================= in getPollsService file',err)
+        return {
+            msg:'error ================= in getPollsService file',
+            error:err
+        }
     }
 }
-const getPostsService=(req,res)=>{
+const getPostsService=async(req,res)=>{
     try{
         if(req.query.getId){
-            // let id=req.query.getId
-            getPostsSpecificRepo(req,res)
+            let result=await getPostsSpecificRepo(req,res)
+            return result
             
         }else{
-            
-            getPostsAllRepo(req,res)
+            let result=await getPostsAllRepo(req,res)
+            return result
 
         }
     }
     catch(err){
-        res.send('error ================= in getPostsService file',err)
+        return {
+            msg:'error ================= in getPostsService file',
+            error:err
+        }
     }
 
 
 
 
 }
-const getSpecificPostsService=(req,res,option)=>{
-    getSpecificPostsRepo(req,res,option)
-
+const getSpecificPostsService=async(req,res,option)=>{
+    try{
+        let result=await getSpecificPostsRepo(req,res,option)
+        return result
+    }
+    catch(err){
+        return {
+            msg:'error ================= in getSpecificPostsService file',
+            error:err
+        }
+    }
 }
-function postPollsService(req,res){
+async function postPollsService(req,res){
     
     try{
             let date= new Date().toISOString()
@@ -80,11 +115,14 @@ function postPollsService(req,res){
     
             
     
-    
-            savingData(newBlog,res)
+            let saving=await savingData(newBlog)
+            return saving
     }
     catch(err){
-            res.send('error ================= in postPollsService file',err)
+        return {
+            msg:'error ================= in postPollsService file',
+            error:err
+        }
     }
 
 
@@ -93,7 +131,7 @@ function postPollsService(req,res){
 
 
 }
-function posting(req,res){
+async function posting(req,res){
     
     cloudinary.config({ 
         cloud_name: process.env.cloud_name, 
@@ -160,14 +198,17 @@ function posting(req,res){
         
         
         
-        
-                savingData(newBlog,res)
+                let saving=await savingData(newBlog)
+                return saving
             }
             
         }
         
         catch(err){
-            res.send('error ================= in postPostsService file',err)
+            return {
+                msg:'error ================= in posting file',
+                error:err
+            }
         }
     
     

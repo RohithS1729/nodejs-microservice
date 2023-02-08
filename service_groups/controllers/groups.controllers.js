@@ -6,37 +6,83 @@ const {
     createGroupService,
     addfollowerService
     }=require("../services/groups.services")
-// const {}=require("../services/groups.services")
-// const {}=require("../services/groups.services")
-// const {}=require("../services/groups.services")
-// const {}=require("../services/groups.services")
-// const {}=require("../services/groups.services")
 
-const getPublicController=(req,res)=>{
-    getAllPublicGroups(req,res)
+
+const getPublicController=async(req,res)=>{
+    try{
+        let result = await getAllPublicGroups(req,res)
+        res.send(result)
         
+    }catch(err){
+        return {
+            msg:'error ================= in getPublicController file',
+            error:err
+        }
+    }    
 
 
 }
 
-const groupsGetNamesController=(req,res)=>{     
-    getGroupProfileService(req,res)
-    
+const groupsGetNamesController=async(req,res)=>{     
+    try{
+        let result = await getGroupProfileService(req,res)
+        res.send(result)
+        
+    }catch(err){
+        return {
+            msg:'error ================= in groupsGetNamesController file',
+            error:err
+        }
+    }  
 }
-const privateGetPostsGroupsController=(req,res)=>{
-    privateGetGroupService(req,res)
+const privateGetPostsGroupsController=async(req,res)=>{
+    try{
+        let result = await privateGetGroupService(req,res)
+        res.send(result)
+        
+    }catch(err){
+        return {
+            msg:'error ================= in privateGetPostsGroupsController file',
+            error:err
+        }
+    }  
 }
-const privateGroupsGetNamesController=(req,res)=>{
-    privateGetGroupProfileService(req,res)
+const privateGroupsGetNamesController=async(req,res)=>{
+    try{
+        let result = await privateGetGroupProfileService(req,res)
+        res.send(result)
+        
+    }catch(err){
+        return {
+            msg:'error ================= in privateGroupsGetNamesController file',
+            error:err
+        }
+    }  
 }
 
-const createGroupController=(req,res)=>{
-
-    createGroupService(req,res)
-    
+const createGroupController=async(req,res)=>{
+    try{
+        let result = await createGroupService(req,res)
+        res.send(result)
+        
+    }catch(err){
+        return {
+            msg:'error ================= in createGroupController file',
+            error:err
+        }
+    }  
 }
-const addfollowerController=(req,res)=>{
-    addfollowerService(req,res)
+const addfollowerController=async(req,res)=>{
+    try{
+        let result = await addfollowerService(req,res)
+        res.send(result)
+        
+    }catch(err){
+        return {
+            msg:'error ================= in addfollowerController file',
+            error:err
+        }
+    }  
 }
 
 module.exports={

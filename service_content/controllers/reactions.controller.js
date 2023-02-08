@@ -27,12 +27,21 @@ const getPostReactions=async (req,res)=>{
 }
 const postPostReactions=async (req,res)=>{
     try{
-     
-        console.log('post like ')
         // let result=await postReactions(req,res) //recieved to process
         // res.send(result) //sent response
-
-
+        function channelAccess(channel){
+            channel.consume("tasks", data => {
+                console.log(`Received data at 8000: ${Buffer.from(data.content)}`);
+    
+                // if(data){
+                //     console.log('call route')
+                //     // redirectToRoute(JSON.parse(data.content))
+    
+                // }
+                channel.ack(data);
+            });
+        }
+        channelAccess(req.channel)
 
 
     }catch(err){
