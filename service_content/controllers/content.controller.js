@@ -8,69 +8,110 @@ const {
     postPollsService,
     posting
 }=require("../services/content.service")
-// const =require("../services/deletePollService")
-// const =require("../services/deletePostsService")
-// const =require("../services/getSpecificPollsService")
-// const =require("../services/getPollsService")
-// const =require("../services/getPostsService")
-// const =require("../services/getSpecificPostsService.js")
-// const =require("../services/postPollsService")
-// const =require("../services/postPostsService")
-
-
-const deletePoll=(req,res)=>{
-    
-    deletePollService(req,res)
-
-}
 
 
 
-const deletePosts=(req,res)=>{
-    
-    deletePostsService(req,res)
-
-}
-
-const getPolls=(req,res)=>{
-
-    if(req.query.type){
-        getSpecificPollsService(req,res,req.query.type)
-    }else{
-        getPollsService(req,res)
-
-    }
-}
-
-
-
-
-
-
-const getPosts=(req,res)=>{
-
-
-    if(req.query.type){
+const deletePoll=async(req,res)=>{
+    try{
+        let result = await deletePollService(req,res)
+        res.send(result)
         
-        getSpecificPostsService(req,res,req.query.type)
-    }else{
-        getPostsService(req,res)
+    }catch(err){
+        return {
+            msg:'error ================= in deletePoll file',
+            error:err
+        }
     }
+
+}
+
+
+
+const deletePosts=async(req,res)=>{
+    try{
+        let result = await deletePostsService(req,res)
+        res.send(result)
+        
+    }catch(err){
+        return {
+            msg:'error ================= in deletePosts file',
+            error:err
+        }
+    }
+}
+
+const getPolls=async(req,res)=>{
+    try{
+        if(req.query.type){
+            let result = await getSpecificPollsService(req,res,req.query.type)
+            res.send(result)
+        }else{
+            let result = await getPollsService(req,res,req.query.type)
+            res.send(result)
+    
+        }
+    }catch(err){
+        return {
+            msg:'error ================= in getPolls file',
+            error:err
+        }
+    }
+
+}
+
+
+
+
+
+
+const getPosts=async(req,res)=>{
+
+    try{
+        if(req.query.type){
+            let result = await getSpecificPostsService(req,res,req.query.type)
+            res.send(result)
+        }else{
+            let result = await getPostsService(req,res)
+            res.send(result)
+    
+        }
+    }catch(err){
+        return {
+            msg:'error ================= in getPosts file',
+            error:err
+        }
+    }
+
    
 
 }
-const postPolls=(req,res)=>{
-    
-    postPollsService(req,res)
-
+const postPolls=async(req,res)=>{
+    try{
+        let result = await postPollsService(req,res)
+        res.send(result)
+        
+    }catch(err){
+        return {
+            msg:'error ================= in postPolls file',
+            error:err
+        }
+    }
 }
 
 
 
 
-const postPosts=(req,res)=>{
-    
-    posting(req,res)
+const postPosts=async(req,res)=>{
+    try{
+        let result = await posting(req,res)
+        res.send(result)
+        
+    }catch(err){
+        return {
+            msg:'error ================= in postPosts file',
+            error:err
+        }
+    }
 
 }
 
